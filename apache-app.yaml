@@ -1,26 +1,25 @@
-apiVersion: apps/v1 # define la version 
-kind: Deployment  # Especifica que este recurso es un Deployment de Kubernetes. Un Deployment gestiona un conjunto de Pods y se encarga de garantizar que siempre haya el número deseado de réplicas corriendo
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: apache-deployment  # El nombre del Deployment es apache-deployment.
-  namespace: default  # El Deployment se está desplegando en el namespace default, que es el espacio de nombres por defecto en Kubernetes.
+  name: apache-deployment
+  namespace: default
   labels:
-    app: apache # Se utiliza para etiquetar este Deployment como parte de la aplicación apache
-spec:  #Contiene la configuración principal del Deployment
-  replicas: 1  #  Indica que se desea tener 1 réplica del Pod corriendo en el clúster.
-  selector:  # Define qué Pods seleccionará Kubernetes para este Deployment. En este caso, selecciona Pods que tengan la etiqueta app: apache.
+    app: apache
+spec:
+  replicas: 1
+  selector:
     matchLabels:
       app: apache
   template:
     metadata:
       labels:
-        app: apache  #Se usa para definir las etiquetas del Pod, en este caso app: apache
+        app: apache
     spec:
       containers:
-      - name: apache # EL nombre del contenedor es Apache
-        image: httpd:2.4 # Imagen usada por el contenedor
+      - name: apache
+        image: httpd:2.4
         ports:
         - containerPort: 80
-        command: ["/bin/sh", "-c", "echo 'ServerName localhost' >> /usr/local/apache2/conf/httpd.conf && httpd-foreground"] 
 
 # Aquí comienza el Sync Hook (PreSync) que se ejecutará antes del despliegue
 apiVersion: batch/v1
@@ -28,21 +27,15 @@ kind: Job
 metadata:
   name: pre-sync-apache-job
   annotations:
-   argocd.argoproj.io/hook: PreSync  # La anotación argocd.argoproj.io/hook: PreSync le dice a ArgoCD que este Job debe ejecutarse antes de que se despliegue la aplicación (en este caso, antes de que Apache se inicie).
-   namespace: default  # El Deployment se está desplegando en el namespace default, que es el espacio de nombres por defecto en Kubernetes.
-  labels:
-    app: apache # Se utiliza para etiquetar este Deployment como parte de la aplicación apache
-  
+    argocd.argoproj.io/hook: PreSync
 spec:
   template:
     spec:
       containers:
       - name: pre-sync-job
-        image: busybox  #Usa la imagen BusyBox, que es una imagen minimalista de Linux, ideal para ejecutar comandos simples.
+        image: busybox
         command: ['sh', '-c', 'echo PreSync Job running before Apache deployment']
-        restartPolicy: Never
-  selector:  # Define qué Pods seleccionará Kubernetes para este Deployment. En este caso, selecciona Pods que tengan la etiqueta app: apache.
-    matchLabels:
-      app: apache
+      restartPolicy: Never
+
  
 
