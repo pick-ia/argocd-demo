@@ -28,7 +28,10 @@ kind: Job
 metadata:
   name: pre-sync-apache-job
   annotations:
-    argocd.argoproj.io/hook: PreSync  # La anotación argocd.argoproj.io/hook: PreSync le dice a ArgoCD que este Job debe ejecutarse antes de que se despliegue la aplicación (en este caso, antes de que Apache se inicie).
+   argocd.argoproj.io/hook: PreSync  # La anotación argocd.argoproj.io/hook: PreSync le dice a ArgoCD que este Job debe ejecutarse antes de que se despliegue la aplicación (en este caso, antes de que Apache se inicie).
+   namespace: default  # El Deployment se está desplegando en el namespace default, que es el espacio de nombres por defecto en Kubernetes.
+   labels:
+    app: apache # Se utiliza para etiquetar este Deployment como parte de la aplicación apache
 spec:
   template:
     spec:
