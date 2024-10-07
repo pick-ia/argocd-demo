@@ -6,7 +6,7 @@ metadata:
   labels:
     app: apache # Se utiliza para etiquetar este Deployment como parte de la aplicación apache
 spec:  #Contiene la configuración principal del Deployment
-  replicas: 1  #  Indica que se desea tener 1 réplica del Pod corriendo en el clúster.
+  replicas: 2  #  Indica que se desea tener 1 réplica del Pod corriendo en el clúster. Cambiamos a dos replicas en el entorno prod apache-app.yaml
   selector:  # Define qué Pods seleccionará Kubernetes para este Deployment. En este caso, selecciona Pods que tengan la etiqueta app: apache.
     matchLabels:
       app: apache
