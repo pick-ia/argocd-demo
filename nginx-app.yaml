@@ -6,7 +6,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 1 # Cambiamos a dos replicas en el entorno prod nginx-app.yaml
+  replicas: 2 # Cambiamos a dos replicas en el entorno prod nginx-app.yaml
   selector:
     matchLabels:
       app: nginx
