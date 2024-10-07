@@ -28,6 +28,9 @@ metadata:
   name: pre-sync-apache-job
   annotations:
     argocd.argoproj.io/hook: PreSync
+    namespace: default
+  labels:
+    app: apache
 spec:
   template:
     spec:
