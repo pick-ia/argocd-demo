@@ -33,6 +33,9 @@ metadata:
     app: apache
 spec:
   template:
+    metadata:
+      labels:
+        app: apache
     spec:
       containers:
       - name: pre-sync-job
