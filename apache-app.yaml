@@ -30,8 +30,9 @@ metadata:
   annotations:
    argocd.argoproj.io/hook: PreSync  # La anotación argocd.argoproj.io/hook: PreSync le dice a ArgoCD que este Job debe ejecutarse antes de que se despliegue la aplicación (en este caso, antes de que Apache se inicie).
    namespace: default  # El Deployment se está desplegando en el namespace default, que es el espacio de nombres por defecto en Kubernetes.
-   labels:
+  labels:
     app: apache # Se utiliza para etiquetar este Deployment como parte de la aplicación apache
+  
 spec:
   template:
     spec:
@@ -39,5 +40,9 @@ spec:
       - name: pre-sync-job
         image: busybox  #Usa la imagen BusyBox, que es una imagen minimalista de Linux, ideal para ejecutar comandos simples.
         command: ['sh', '-c', 'echo PreSync Job running before Apache deployment']
-      restartPolicy: Never
+        restartPolicy: Never
+  selector:  # Define qué Pods seleccionará Kubernetes para este Deployment. En este caso, selecciona Pods que tengan la etiqueta app: apache.
+    matchLabels:
+      app: apache
+ 
 
