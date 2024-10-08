@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: github-event-source
+  namespace: argo-events
+spec:
+  githubs:
+    - name: example
+      owner: pick-ia
+      repository: argocd-demo
+      events:
+        - push
+      apiToken:
+        valueFrom:
+          secretKeyRef:
+            name: github-access
+            key: token
+      webhook:
+        port: "12000"
