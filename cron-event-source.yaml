@@ -9,3 +9,24 @@ spec:
       schedule: "* * * * *"
       timezone: "UTC"
       payload: '{"message": "¡Hola desde Argo Events!"}'
+#
+Componentes y Configuraciones:
+
+apiVersion y kind:
+
+apiVersion: argoproj.io/v1alpha1 indica la versión de la API de Argo Events.
+kind: EventSource especifica que este recurso es un EventSource.
+metadata:
+
+name: cron-event-source es el nombre del EventSource.
+namespace: argo-events es el espacio de nombres de Kubernetes donde se crea el recurso.
+spec:
+
+cron: es una lista que define uno o más eventos de cron.
+name: Identificador único del cron dentro del EventSource.
+schedule: La expresión cron que determina cuándo se ejecuta el evento. En este caso, "* * * * *" significa que se ejecuta cada minuto.
+timezone: La zona horaria utilizada para el cron, en este caso "UTC".
+payload: La carga útil que se enviará con el evento, aquí un mensaje en formato JSON.
+¿Qué podemos hacer con este archivo?
+
+Este EventSource generará un evento cada minuto con el mensaje especificado en payload. Podemos utilizar este evento para desencadenar acciones en Argo Events, como ejecutar Workflows, enviar notificaciones, actualizar configuraciones, etc.
