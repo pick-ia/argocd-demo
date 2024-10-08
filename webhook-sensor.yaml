@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: webhook-sensor
+  namespace: argo-events
+spec:
+  dependencies:
+    - name: example-webhook
+      eventSourceName: webhook-event-source
+      eventName: example-webhook
+  triggers:
+    - template:
+        name: webhook-trigger
+        argoWorkflow:
+          group: argoproj.io
+          version: v1alpha1
+          resource: workflows
+          operation: submit
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Workflow
+              metadata:
+                generateName: webhook-workflow-
+              spec:
+                entrypoint: log-message
+                templates:
+                  - name: log-message
+                    container:
+                      image: alpine
+                      command: [echo]
+                      args: ["{{(payload)}}"]
