@@ -1,0 +1,11 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: cron-event-source
+  namespace: argo-events
+spec:
+  cron:
+    - name: every-minute
+      schedule: "* * * * *"
+      timezone: "UTC"
+      payload: '{"message": "¡Hola desde Argo Events!"}'
