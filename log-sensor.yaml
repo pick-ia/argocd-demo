@@ -30,3 +30,49 @@ spec:
                       image: alpine
                       command: [echo]
                       args: ["{{(payload)}}"]
+# Componentes y Configuraciones
+Componentes y Configuraciones:
+
+apiVersion y kind:
+
+apiVersion: argoproj.io/v1alpha1 indica la versión de la API de Argo Events.
+kind: Sensor especifica que este recurso es un Sensor.
+metadata:
+
+name: log-sensor es el nombre del Sensor.
+namespace: argo-events es el espacio de nombres donde se crea el recurso.
+spec:
+
+dependencies:
+
+Define las dependencias de eventos que el Sensor está escuchando.
+Cada dependencia incluye:
+name: Nombre de la dependencia.
+eventSourceName: Nombre del EventSource que emite el evento.
+eventName: Nombre específico del evento dentro del EventSource.
+triggers:
+
+Define las acciones que se ejecutarán cuando se reciban los eventos.
+template:
+name: Nombre del trigger.
+argoWorkflow:
+Especifica que el trigger ejecutará un Workflow de Argo Workflows.
+group, version, resource: Identifican el recurso que se gestionará (en este caso, workflows.argoproj.io/v1alpha1).
+operation: La acción a realizar, aquí es submit para crear y ejecutar el Workflow.
+source:
+resource:
+Define el Workflow que se ejecutará.
+metadata:
+generateName: Prefijo para el nombre del Workflow que se generará.
+spec:
+entrypoint: Punto de entrada del Workflow, es decir, el template inicial.
+templates: Lista de templates que definen las tareas del Workflow.
+Cada template incluye:
+name: Nombre del template.
+container: Especifica el contenedor que se ejecutará.
+image: Imagen de Docker a utilizar (aquí, alpine).
+command: Comando a ejecutar (aquí, echo).
+args: Argumentos del comando, utilizando {{(payload)}} para imprimir la carga útil del evento.
+¿Qué podemos hacer con este archivo?
+
+Este Sensor escucha los eventos emitidos por el cron-event-source. Cuando se recibe un evento every-minute, el Sensor desencadena un Workflow de Argo que ejecuta un contenedor de Alpine y utiliza el comando echo para imprimir el mensaje contenido en el payload del evento.
