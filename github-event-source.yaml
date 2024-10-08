@@ -13,7 +13,7 @@ spec:
       apiToken:
         valueFrom:
           secretKeyRef:
-            name: github-access
-            key: token
+            name: github-access  # es el nombre del secreto en Kubernetes
+            key: token   # el token que hemos generado en GitHub
       webhook:
         port: "12000"
