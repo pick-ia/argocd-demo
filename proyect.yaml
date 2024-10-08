@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: mi-proyecto
+  namespace: argocd
+spec:
+  description: Proyecto para aplicaciones de ejemplo
+  sourceRepos:
+    - 'https://github.com/usuario/*'
+  destinations:
+    - namespace: '*'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+#El recurso AppProject permite agrupar aplicaciones y definir permisos y restricciones.
+
