@@ -6,3 +6,22 @@ metadata:
 spec:
   nats:
     native: {}
+
+#-------------
+Explicación:
+
+apiVersion y kind:
+
+apiVersion: argoproj.io/v1alpha1: Indica la versión de la API de Argo Events.
+kind: EventBus: Especifica que este recurso es un EventBus.
+metadata:
+
+name: default: Nombre del EventBus. Al llamarlo default, se convierte en el EventBus por defecto que utilizarán los EventSources y Sensors si no se especifica otro.
+namespace: argo-events: Espacio de nombres donde se creará el EventBus.
+spec:
+
+nats:: Indica que se utilizará NATS (un sistema de mensajería ligero) como backend para el EventBus.
+native: {}: Utiliza la configuración nativa de NATS proporcionada por Argo Events sin necesidad de configuración adicional.
+Función:
+
+El EventBus es esencial para que los EventSources puedan enviar eventos y los Sensors puedan recibirlos. Es la columna vertebral de la comunicación en Argo Events.
