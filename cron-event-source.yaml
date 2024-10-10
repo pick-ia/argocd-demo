@@ -4,11 +4,14 @@ metadata:
   name: cron-event-source
   namespace: argo-events
 spec:
+  template:
+    serviceAccountName: argo-events-sa
   cron:
-    - name: every-minute
-      schedule: "* * * * *"
+    example:
+      schedule: "*/5 * * * *"  # Cada 5 minutos
       timezone: "UTC"
-      payload: '{"message": "¡Hola desde Argo Events!"}'
+      payload: '{"message": "Hello from Cron EventSource!"}'
+
 #------------------------------------------
 Componentes y Configuraciones:
 
