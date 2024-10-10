@@ -9,7 +9,7 @@ spec:
       schedule: "* * * * *"
       timezone: "UTC"
       payload: '{"message": "¡Hola desde Argo Events!"}'
-#
+#------------------------------------------
 Componentes y Configuraciones:
 
 apiVersion y kind:
