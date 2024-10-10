@@ -7,7 +7,7 @@ spec:
   dependencies:
     - name: test-cron-event
       eventSourceName: cron-event-source
-      eventName: test-timer
+      eventName: example
   triggers:
     - template:
         name: log-trigger
