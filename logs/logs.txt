@@ -1,15 +1,56 @@
-kubectl logs cron-event-source-eventsource-r8ktm-5b8575cb54-d85nq -n argo-events
-{"level":"info","ts":1728591564.74299,"logger":"argo-events.eventsource","caller":"metrics/metrics.go:190","msg":"starting metrics server","eventSourceName":"cron-event-source"}
-{"level":"info","ts":1728591564.7422342,"logger":"argo-events.eventsource","caller":"cmd/start.go:63","msg":"starting eventsource server","eventSourceName":"cron-event-source","version":"v1.9.2"}
-{"level":"info","ts":1728591564.7440126,"logger":"argo-events.eventsource","caller":"eventsources/eventing.go:454","msg":"Starting event source server...","eventSourceName":"cron-event-source"}
-{"level":"info","ts":1728591564.7441208,"logger":"argo-events.eventsource","caller":"eventbus/driver.go:35","msg":"eventBusConfig: {NATS:&NATSConfig{URL:nats://eventbus-default-stan-svc:4222,ClusterID:*eventbus-default,Auth:*none,AccessSecret:nil,} JetStream:nil Kafka:nil}","eventSourceName":"cron-event-source"}
-{"level":"info","ts":1728591564.7441804,"logger":"argo-events.eventsource","caller":"base/stan.go:51","msg":"NATS auth strategy: None","eventSourceName":"cron-event-source","clientID":"client-cron-event-source-eventsource-r8ktm-5b8575cb54-d85nq-332"}
-{"level":"info","ts":1728591564.776878,"logger":"argo-events.eventsource","caller":"base/stan.go:60","msg":"Connected to NATS server.","eventSourceName":"cron-event-source","clientID":"client-cron-event-source-eventsource-r8ktm-5b8575cb54-d85nq-332"}
-{"level":"info","ts":1728591564.82286,"logger":"argo-events.eventsource","caller":"base/stan.go:73","msg":"Connected to NATS streaming server.","eventSourceName":"cron-event-source","clientID":"client-cron-event-source-eventsource-r8ktm-5b8575cb54-d85nq-332"}
-{"level":"info","ts":1728591564.8229291,"logger":"argo-events.eventsource","caller":"eventsources/eventing.go:603","msg":"Eventing server started.","eventSourceName":"cron-event-source"}
-{"level":"error","ts":1728591564.8230114,"logger":"argo-events.eventsource","caller":"eventsources/eventing.go:620","msg":"Erroring out, no active event server running","eventSourceName":"cron-event-source","stacktrace":"github.com/argoproj/argo-events/eventsources.(*EventSourceAdaptor).run\n\t/home/runner/work/argo-events/argo-events/eventsources/eventing.go:620\ngithub.com/argoproj/argo-events/eventsources.(*EventSourceAdaptor).Start\n\t/home/runner/work/argo-events/argo-events/eventsources/eventing.go:425\ngithub.com/argoproj/argo-events/eventsources/cmd.Start\n\t/home/runner/work/argo-events/argo-events/eventsources/cmd/start.go:66\ngithub.com/argoproj/argo-events/cmd/commands.init.0.NewEventSourceCommand.func1\n\t/home/runner/work/argo-events/argo-events/cmd/commands/eventsource.go:14\ngithub.com/spf13/cobra.(*Command).execute\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:987\ngithub.com/spf13/cobra.(*Command).ExecuteC\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1115\ngithub.com/spf13/cobra.(*Command).Execute\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1039\ngithub.com/argoproj/argo-events/cmd/commands.Execute\n\t/home/runner/work/argo-events/argo-events/cmd/commands/root.go:19\nmain.main\n\t/home/runner/work/argo-events/argo-events/cmd/main.go:8\nruntime.main\n\t/opt/hostedtoolcache/go/1.21.11/x64/src/runtime/proc.go:267"}
-{"level":"info","ts":1728591564.8231764,"logger":"argo-events.eventsource","caller":"eventsources/eventing.go:481","msg":"starting eventbus connection daemon...","eventSourceName":"cron-event-source"}
-{"level":"info","ts":1728591564.8232992,"logger":"argo-events.eventsource","caller":"eventsources/eventing.go:487","msg":"exiting eventbus connection daemon...","eventSourceName":"cron-event-source"}
-{"level":"fatal","ts":1728591564.8420432,"logger":"argo-events.eventsource","caller":"cmd/start.go:67","msg":"failed to start eventsource server","eventSourceName":"cron-event-source","error":"no active event server running","stacktrace":"github.com/argoproj/argo-events/eventsources/cmd.Start\n\t/home/runner/work/argo-events/argo-events/eventsources/cmd/start.go:67\ngithub.com/argoproj/argo-events/cmd/commands.init.0.NewEventSourceCommand.func1\n\t/home/runner/work/argo-events/argo-events/cmd/commands/eventsource.go:14\ngithub.com/spf13/cobra.(*Command).execute\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:987\ngithub.com/spf13/cobra.(*Command).ExecuteC\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1115\ngithub.com/spf13/cobra.(*Command).Execute\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1039\ngithub.com/argoproj/argo-events/cmd/commands.Execute\n\t/home/runner/work/argo-events/argo-events/cmd/commands/root.go:19\nmain.main\n\t/home/runner/work/argo-events/argo-events/cmd/main.go:8\nruntime.main\n\t/opt/hostedtoolcache/go/1.21.11/x64/src/runtime/proc.go:267"}
+raul@raul-VirtualBox:~/argo-events-configs$ kubectl logs eventbus-default-stan-0 -n argo-events
+Defaulted container "stan" out of: stan, metrics
+[1] 2024/10/10 19:51:47.115301 [INF] STREAM: Starting nats-streaming-server[eventbus-default] version 0.22.1
+[1] 2024/10/10 19:51:47.115415 [INF] STREAM: ServerID: q2XK1qbKofSvK2LgJGqSuv
+[1] 2024/10/10 19:51:47.115462 [INF] STREAM: Go version: go1.16.6
+[1] 2024/10/10 19:51:47.115498 [INF] STREAM: Git commit: [27f1d60]
+[1] 2024/10/10 19:51:47.289842 [INF] Starting nats-server
+[1] 2024/10/10 19:51:47.291585 [INF]   Version:  2.3.3
+[1] 2024/10/10 19:51:47.291688 [INF]   Git:      [aaba459]
+[1] 2024/10/10 19:51:47.291724 [INF]   Name:     NBRJFWPL66DCIHELZYRDKNVL6BLIUBGMJ4KA2QCDYRMQPDQAS4AAVGXQ
+[1] 2024/10/10 19:51:47.291760 [INF]   ID:       NBRJFWPL66DCIHELZYRDKNVL6BLIUBGMJ4KA2QCDYRMQPDQAS4AAVGXQ
+[1] 2024/10/10 19:51:47.291795 [INF] Using configuration file: /etc/stan-config/stan.conf
+[1] 2024/10/10 19:51:47.515562 [INF] Starting http monitor on 0.0.0.0:8222
+[1] 2024/10/10 19:51:47.515920 [INF] Listening for client connections on 0.0.0.0:4222
+[1] 2024/10/10 19:51:47.516277 [INF] Server is ready
+[1] 2024/10/10 19:51:47.516497 [INF] Cluster name is q2XK1qbKofSvK2LgJGqSys
+[1] 2024/10/10 19:51:47.516533 [WRN] Cluster name was dynamically generated, consider setting one
+[1] 2024/10/10 19:51:47.516581 [INF] Listening for route connections on 0.0.0.0:6222
+[1] 2024/10/10 19:51:47.699914 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-0.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-0.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
+[1] 2024/10/10 19:51:47.762975 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-1.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-1.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
+[1] 2024/10/10 19:51:47.762984 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-2.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-2.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
+[1] 2024/10/10 19:51:47.797876 [INF] STREAM: Recovering the state...
+[1] 2024/10/10 19:51:47.799911 [INF] STREAM: No recovered state
+[1] 2024/10/10 19:51:47.805802 [INF] STREAM: Cluster Node ID : eventbus-default-stan-0
+[1] 2024/10/10 19:51:47.805846 [INF] STREAM: Cluster Log Path: /data/stan/logs
+[1] 2024/10/10 19:51:47.805882 [INF] STREAM: Cluster known peers:
+[1] 2024/10/10 19:51:47.805919 [INF] STREAM: peer 1: "eventbus-default-stan-1"
+[1] 2024/10/10 19:51:47.805955 [INF] STREAM: peer 2: "eventbus-default-stan-2"
+[1] 2024/10/10 19:51:48.050291 [INF] STREAM: Message store is RAFT_FILE
+[1] 2024/10/10 19:51:48.050500 [INF] STREAM: Store location: /data/stan/store
+[1] 2024/10/10 19:51:48.051447 [INF] STREAM: ---------- Store Limits ----------
+[1] 2024/10/10 19:51:48.051601 [INF] STREAM: Channels:                  100 *
+[1] 2024/10/10 19:51:48.051832 [INF] STREAM: --------- Channels Limits --------
+[1] 2024/10/10 19:51:48.051870 [INF] STREAM:   Subscriptions:          1000 *
+[1] 2024/10/10 19:51:48.051906 [INF] STREAM:   Messages     :       1000000 *
+[1] 2024/10/10 19:51:48.051939 [INF] STREAM:   Bytes        :       1.00 GB
+[1] 2024/10/10 19:51:48.051973 [INF] STREAM:   Age          :       72h0m0s
+[1] 2024/10/10 19:51:48.052002 [INF] STREAM:   Inactivity   :     unlimited *
+[1] 2024/10/10 19:51:48.052035 [INF] STREAM: ----------------------------------
+[1] 2024/10/10 19:52:18.243538 [INF] 10.244.0.166:33594 - rid:9 - Route connection created
+[1] 2024/10/10 19:52:18.286119 [ERR] 10.244.0.166:33594 - rid:9 - Rejecting connection, cluster name "fatvcqW5qjPs15FrKkcEwL" does not match "q2XK1qbKofSvK2LgJGqSys"
+[1] 2024/10/10 19:52:18.292367 [INF] 10.244.0.166:33594 - rid:9 - Router connection closed: Cluster Name Conflict
+[1] 2024/10/10 19:52:18.294336 [ERR] 10.244.0.166:33594 - rid:9 - cluster name from remote server conflicts
+[1] 2024/10/10 19:52:18.296348 [INF] 10.244.0.167:58078 - rid:10 - Route connection created
+[1] 2024/10/10 19:52:18.430179 [ERR] 10.244.0.167:58078 - rid:10 - Rejecting connection, cluster name "fatvcqW5qjPs15FrKkcEwL" does not match "q2XK1qbKofSvK2LgJGqSys"
+[1] 2024/10/10 19:52:18.430227 [INF] 10.244.0.167:58078 - rid:10 - Router connection closed: Cluster Name Conflict
+[1] 2024/10/10 19:52:18.430317 [ERR] 10.244.0.167:58078 - rid:10 - cluster name from remote server conflicts
+[1] 2024/10/10 19:52:18.489429 [INF] 10.244.0.167:6222 - rid:11 - Route connection created
+[1] 2024/10/10 19:52:18.666951 [INF] 10.244.0.166:6222 - rid:12 - Route connection created
+[1] 2024/10/10 19:52:19.615720 [INF] 10.244.0.166:33596 - rid:13 - Route connection created
+[1] 2024/10/10 19:52:19.623975 [INF] 10.244.0.166:33596 - rid:13 - Router connection closed: Duplicate Route
+[1] 2024/10/10 19:52:19.686953 [INF] 10.244.0.167:58094 - rid:14 - Route connection created
+[1] 2024/10/10 19:52:19.688314 [INF] 10.244.0.167:58094 - rid:14 - Router connection closed: Duplicate Route
+[1] 2024/10/10 20:03:07.571386 [INF] STREAM: Channel "eventbus-argo-events" has been crea
 
 
