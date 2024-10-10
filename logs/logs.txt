@@ -1,120 +1,28 @@
-Installation¶
-Requirements¶
+aul@raul-VirtualBox:~/argo-events-configs$ kubectl  get all -n argo-events
+NAME                                                     READY   STATUS             RESTARTS      AGE
+pod/controller-manager-76dcdd5b97-nj6sg                  1/1     Running            0             87m
+pod/cron-event-source-eventsource-mp75p-f5c8bc87-h2nvc   0/1     CrashLoopBackOff   3 (50s ago)   104s
+pod/cron-sensor-sensor-hnzn2-557db68f98-52sfc            1/1     Running            0             36s
+pod/eventbus-default-stan-0                              2/2     Running            0             23m
+pod/eventbus-default-stan-1                              2/2     Running            0             23m
+pod/eventbus-default-stan-2                              2/2     Running            0             23m
 
-    Kubernetes cluster >=v1.11
-    Installed the kubectl command-line tool >v1.11.0
+NAME                                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                      AGE
+service/eventbus-default-stan-svc   ClusterIP   None         <none>        4222/TCP,6222/TCP,8222/TCP   24m
 
-Using kubectl¶
-Cluster-wide Installation¶
+NAME                                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/controller-manager                    1/1     1            1           87m
+deployment.apps/cron-event-source-eventsource-mp75p   0/1     1            0           104s
+deployment.apps/cron-sensor-sensor-hnzn2              1/1     1            1           36s
 
-    Create the namespace.
+NAME                                                           DESIRED   CURRENT   READY   AGE
+replicaset.apps/controller-manager-76dcdd5b97                  1         1         1       87m
+replicaset.apps/cron-event-source-eventsource-mp75p-f5c8bc87   1         1         0       104s
+replicaset.apps/cron-sensor-sensor-hnzn2-557db68f98            1         1         1       36s
 
-kubectl create namespace argo-events
+NAME                                     READY   AGE
+statefulset.apps/eventbus-default-stan   3/3     23m
 
-Deploy Argo Events SA, ClusterRoles, and Controller for Sensor, EventBus, and EventSource.
-
-kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install.yaml
-# Install with a validating admission controller
-kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install-validating-webhook.yaml
-
-NOTE:
-
- * On GKE, you may need to grant your account the ability to create new custom resource definitions and clusterroles
-
-        kubectl create clusterrolebinding YOURNAME-cluster-admin-binding --clusterrole=cluster-admin --user=YOUREMAIL@gmail.com
-
- * On OpenShift:
-     - Make sure to grant `anyuid` scc to the service accounts.
-
-        oc adm policy add-scc-to-user anyuid system:serviceaccount:argo-events:argo-events-sa system:serviceaccount:argo-events:argo-events-webhook-sa
-
-     - Add update permissions for the `deployments/finalizers` and `clusterroles/finalizers` of the argo-events-webhook ClusterRole(this is necessary for the validating admission controller)
-
-        - apiGroups:
-          - rbac.authorization.k8s.io
-          resources:
-          - clusterroles/finalizers
-          verbs:
-          - update
-        - apiGroups:
-          - apps
-          resources:
-          - deployments/finalizers
-          verbs:
-          - update
-
-Deploy the eventbus.
-
-    kubectl apply -n argo-events -f https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
-
-Namespace Installation¶
-
-    Create the namespace.
-
-kubectl create namespace argo-events
-
-Deploy Argo Events SA, ClusterRoles, and Controller for Sensor, EventBus, and EventSource.
-
-kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/namespace-install.yaml
-
-NOTE:
-
- * On GKE, you may need to grant your account the ability to create new custom resource definitions
-
-        kubectl create clusterrolebinding YOURNAME-cluster-admin-binding --clusterrole=cluster-admin --user=YOUREMAIL@gmail.com
-
- * On OpenShift:
-     - Make sure to grant `anyuid` scc to the service account.
-
-        oc adm policy add-scc-to-user anyuid system:serviceaccount:argo-events:default
-
-     - Add update permissions for the `deployments/finalizers` and `clusterroles/finalizers` of the argo-events-webhook ClusterRole(this is necessary for the validating admission controller)
-
-        - apiGroups:
-          - rbac.authorization.k8s.io
-          resources:
-          - clusterroles/finalizers
-          verbs:
-          - update
-        - apiGroups:
-          - apps
-          resources:
-          - deployments/finalizers
-          verbs:
-          - update
-
-Deploy the eventbus.
-
-    kubectl apply -n argo-events -f https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
-
-Using Kustomize¶
-
-Use either cluster-install, or cluster-install-with-extension, or namespace-install folder as your base for Kustomize.
-
-kustomization.yaml:
-
-bases:
-  - github.com/argoproj/argo-events/manifests/cluster-install
-  # OR
-  - github.com/argoproj/argo-events/manifests/namespace-install
-
-Using Helm Chart¶
-
-Make sure you have helm client installed. To install helm, follow the link.
-
-    Add argoproj repository.
-
-helm repo add argo https://argoproj.github.io/argo-helm
-
-The helm chart for argo-events is maintained solely by the community and hence the image version for controllers can go out of sync. Update the image version in values.yaml to v1.0.0.
-
-Install argo-events chart.
-
-helm install argo-events argo/argo-events -n argo-events --create-namespace
-
-Deploy the eventbus.
-
-kubectl apply -n argo-events -f https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
 
 
 
