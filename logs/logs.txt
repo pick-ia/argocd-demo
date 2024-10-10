@@ -1,58 +1,6 @@
+NAME                                  READY   STATUS    RESTARTS   AGE
+controller-manager-76dcdd5b97-vx2kq   1/1     Running   0          43m
+eventbus-default-stan-0               2/2     Running   0          22s
+eventbus-default-stan-1               2/2     Running   0          15s
+eventbus-default-stan-2               2/2     Running   0          10s
 
-aul@raul-VirtualBox:~/argo-events-configs$ kubectl describe sensor cron-sensor -n argo-events
-Name:         cron-sensor
-Namespace:    argo-events
-Labels:       <none>
-Annotations:  <none>
-API Version:  argoproj.io/v1alpha1
-Kind:         Sensor
-Metadata:
-  Creation Timestamp:  2024-10-10T19:35:54Z
-  Finalizers:
-    sensor-controller
-  Generation:        2
-  Resource Version:  414616
-  UID:               696d1196-d249-4f5b-8363-6e0a44f79f3e
-Spec:
-  Dependencies:
-    Event Name:         test-timer
-    Event Source Name:  cron-event-source
-    Name:               test-cron-event
-  Logging Fields:       <nil>
-  Triggers:
-    Template:
-      Conditions:  test-cron-event
-      k8s:
-        Operation:  Create
-        Source:
-          Resource:
-            API Version:  v1
-            Kind:         Pod
-            Metadata:
-              Generate Name:  log-pod-
-              Namespace:      argo-events
-            Spec:
-              Containers:
-                Args:
-                  echo 'Event detected from Cron!'; sleep 300
-                Command:
-                  /bin/sh
-                  -c
-                Image:         alpine
-                Name:          log-container
-              Restart Policy:  Never
-      Name:                    log-trigger
-Status:
-  Conditions:
-    Last Transition Time:  2024-10-10T19:35:54Z
-    Status:                Unknown
-    Type:                  DependenciesProvided
-    Last Transition Time:  2024-10-10T19:41:23Z
-    Message:               EventBus not found.
-    Reason:                EventBusNotFound
-    Status:                False
-    Type:                  Deployed
-    Last Transition Time:  2024-10-10T19:35:54Z
-    Status:                Unknown
-    Type:                  TriggersProvided
-Events:                    <none>
