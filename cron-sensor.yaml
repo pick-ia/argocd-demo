@@ -1,35 +1,37 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
-  name: log-sensor
+  name: cron-sensor
   namespace: argo-events
 spec:
   dependencies:
-    - name: every-minute
+    - name: test-cron-event
       eventSourceName: cron-event-source
-      eventName: every-minute
+      eventName: test-timer
   triggers:
     - template:
         name: log-trigger
-        argoWorkflow:
-          group: argoproj.io
-          version: v1alpha1
-          resource: workflows
-          operation: submit
+        conditions: test-cron-event
+        k8s:
+          group: ""
+          version: v1
+          resource: Pod
+          operation: Create
           source:
             resource:
-              apiVersion: argoproj.io/v1alpha1
-              kind: Workflow
+              apiVersion: v1
+              kind: Pod
               metadata:
-                generateName: log-workflow-
+                generateName: log-pod-
+                namespace: argo-events
               spec:
-                entrypoint: log-message
-                templates:
-                  - name: log-message
-                    container:
-                      image: alpine
-                      command: [echo]
-                      args: ["{{(payload)}}"]
+                containers:
+                  - name: log-container
+                    image: alpine
+                    command: ["/bin/sh", "-c"]
+                    args: ["echo 'Event detected from Cron!'; sleep 300"]
+                restartPolicy: Never
+
 # Componentes y Configuraciones
 Componentes y Configuraciones:
 
