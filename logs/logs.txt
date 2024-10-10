@@ -51,6 +51,6 @@ Defaulted container "stan" out of: stan, metrics
 [1] 2024/10/10 19:52:19.623975 [INF] 10.244.0.166:33596 - rid:13 - Router connection closed: Duplicate Route
 [1] 2024/10/10 19:52:19.686953 [INF] 10.244.0.167:58094 - rid:14 - Route connection created
 [1] 2024/10/10 19:52:19.688314 [INF] 10.244.0.167:58094 - rid:14 - Router connection closed: Duplicate Route
-[1] 2024/10/10 20:03:07.571386 [INF] STREAM: Channel "eventbus-argo-events" has been crea
+[1] 2024/10/10 20:03:07.571386 [INF] STREAM: Channel "eventbus-argo-events" has been created
 
 
