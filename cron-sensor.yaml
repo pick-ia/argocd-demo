@@ -16,7 +16,7 @@ spec:
           group: ""
           version: v1
           resource: Pod
-          operation: Create
+          operation: create
           source:
             resource:
               apiVersion: v1
