@@ -1,27 +1,20 @@
-aul@raul-VirtualBox:~/argo-events-configs$ kubectl  get all -n argo-events
-NAME                                                     READY   STATUS             RESTARTS      AGE
-pod/controller-manager-76dcdd5b97-nj6sg                  1/1     Running            0             87m
-pod/cron-event-source-eventsource-mp75p-f5c8bc87-h2nvc   0/1     CrashLoopBackOff   3 (50s ago)   104s
-pod/cron-sensor-sensor-hnzn2-557db68f98-52sfc            1/1     Running            0             36s
-pod/eventbus-default-stan-0                              2/2     Running            0             23m
-pod/eventbus-default-stan-1                              2/2     Running            0             23m
-pod/eventbus-default-stan-2                              2/2     Running            0             23m
-
-NAME                                TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                      AGE
-service/eventbus-default-stan-svc   ClusterIP   None         <none>        4222/TCP,6222/TCP,8222/TCP   24m
-
-NAME                                                  READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/controller-manager                    1/1     1            1           87m
-deployment.apps/cron-event-source-eventsource-mp75p   0/1     1            0           104s
-deployment.apps/cron-sensor-sensor-hnzn2              1/1     1            1           36s
-
-NAME                                                           DESIRED   CURRENT   READY   AGE
-replicaset.apps/controller-manager-76dcdd5b97                  1         1         1       87m
-replicaset.apps/cron-event-source-eventsource-mp75p-f5c8bc87   1         1         0       104s
-replicaset.apps/cron-sensor-sensor-hnzn2-557db68f98            1         1         1       36s
-
-NAME                                     READY   AGE
-statefulset.apps/eventbus-default-stan   3/3     23m
+raul@raul-VirtualBox:~/argo-events-configs$ kubectl logs pod/cron-event-source-eventsource-mp75p-f5c8bc87-h2nvc -n argo-events
+{"level":"info","ts":1728602099.6606467,"logger":"argo-events.eventsource","caller":"cmd/start.go:63","msg":"starting eventsource server","eventSourceName":"cron-event-source","version":"v1.9.2"}
+{"level":"info","ts":1728602099.6610453,"logger":"argo-events.eventsource","caller":"eventsources/eventing.go:454","msg":"Starting event source server...","eventSourceName":"cron-event-source"}
+{"time":"2024-10-10T23:14:59.661542473Z","level":"INFO","msg":"trying to resolve absolute path","path":"/etc/eventbus/auth"}
+{"time":"2024-10-10T23:14:59.661631031Z","level":"INFO","msg":"adding path to search paths","path":"/etc/eventbus/auth"}
+{"time":"2024-10-10T23:14:59.661673215Z","level":"INFO","msg":"attempting to read in config file"}
+{"time":"2024-10-10T23:14:59.66171065Z","level":"INFO","msg":"searching for config in paths","paths":["/etc/eventbus/auth"]}
+{"level":"info","ts":1728602099.6617153,"logger":"argo-events.eventsource","caller":"metrics/metrics.go:190","msg":"starting metrics server","eventSourceName":"cron-event-source"}
+{"level":"info","ts":1728602099.6626813,"logger":"argo-events.eventsource","caller":"eventbus/driver.go:35","msg":"eventBusConfig: {NATS:&NATSConfig{URL:nats://eventbus-default-stan-svc:4222,ClusterID:*eventbus-default,Auth:*token,AccessSecret:&v1.SecretKeySelector{LocalObjectReference:LocalObjectReference{Name:eventbus-default-client,},Key:client-auth,Optional:nil,},} JetStream:nil Kafka:nil}","eventSourceName":"cron-event-source"}
+{"level":"info","ts":1728602099.6639538,"logger":"argo-events.eventsource","caller":"base/stan.go:48","msg":"NATS auth strategy: Token","eventSourceName":"cron-event-source","clientID":"client-cron-event-source-eventsource-mp75p-f5c8bc87-h2nvc-379"}
+{"level":"info","ts":1728602099.6815226,"logger":"argo-events.eventsource","caller":"base/stan.go:60","msg":"Connected to NATS server.","eventSourceName":"cron-event-source","clientID":"client-cron-event-source-eventsource-mp75p-f5c8bc87-h2nvc-379"}
+{"level":"info","ts":1728602099.6944232,"logger":"argo-events.eventsource","caller":"base/stan.go:73","msg":"Connected to NATS streaming server.","eventSourceName":"cron-event-source","clientID":"client-cron-event-source-eventsource-mp75p-f5c8bc87-h2nvc-379"}
+{"level":"info","ts":1728602099.6953347,"logger":"argo-events.eventsource","caller":"eventsources/eventing.go:603","msg":"Eventing server started.","eventSourceName":"cron-event-source"}
+{"level":"error","ts":1728602099.6958156,"logger":"argo-events.eventsource","caller":"eventsources/eventing.go:620","msg":"Erroring out, no active event server running","eventSourceName":"cron-event-source","stacktrace":"github.com/argoproj/argo-events/eventsources.(*EventSourceAdaptor).run\n\t/home/runner/work/argo-events/argo-events/eventsources/eventing.go:620\ngithub.com/argoproj/argo-events/eventsources.(*EventSourceAdaptor).Start\n\t/home/runner/work/argo-events/argo-events/eventsources/eventing.go:425\ngithub.com/argoproj/argo-events/eventsources/cmd.Start\n\t/home/runner/work/argo-events/argo-events/eventsources/cmd/start.go:66\ngithub.com/argoproj/argo-events/cmd/commands.init.0.NewEventSourceCommand.func1\n\t/home/runner/work/argo-events/argo-events/cmd/commands/eventsource.go:14\ngithub.com/spf13/cobra.(*Command).execute\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:987\ngithub.com/spf13/cobra.(*Command).ExecuteC\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1115\ngithub.com/spf13/cobra.(*Command).Execute\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1039\ngithub.com/argoproj/argo-events/cmd/commands.Execute\n\t/home/runner/work/argo-events/argo-events/cmd/commands/root.go:19\nmain.main\n\t/home/runner/work/argo-events/argo-events/cmd/main.go:8\nruntime.main\n\t/opt/hostedtoolcache/go/1.21.11/x64/src/runtime/proc.go:267"}
+{"level":"info","ts":1728602099.6964147,"logger":"argo-events.eventsource","caller":"eventsources/eventing.go:481","msg":"starting eventbus connection daemon...","eventSourceName":"cron-event-source"}
+{"level":"info","ts":1728602099.696484,"logger":"argo-events.eventsource","caller":"eventsources/eventing.go:487","msg":"exiting eventbus connection daemon...","eventSourceName":"cron-event-source"}
+{"level":"fatal","ts":1728602099.728807,"logger":"argo-events.eventsource","caller":"cmd/start.go:67","msg":"failed to start eventsource server","eventSourceName":"cron-event-source","error":"no active event server running","stacktrace":"github.com/argoproj/argo-events/eventsources/cmd.Start\n\t/home/runner/work/argo-events/argo-events/eventsources/cmd/start.go:67\ngithub.com/argoproj/argo-events/cmd/commands.init.0.NewEventSourceCommand.func1\n\t/home/runner/work/argo-events/argo-events/cmd/commands/eventsource.go:14\ngithub.com/spf13/cobra.(*Command).execute\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:987\ngithub.com/spf13/cobra.(*Command).ExecuteC\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1115\ngithub.com/spf13/cobra.(*Command).Execute\n\t/home/runner/go/pkg/mod/github.com/spf13/cobra@v1.8.0/command.go:1039\ngithub.com/argoproj/argo-events/cmd/commands.Execute\n\t/home/runner/work/argo-events/argo-events/cmd/commands/root.go:19\nmain.main\n\t/home/runner/work/argo-events/argo-events/cmd/main.go:8\nruntime.main\n\t/opt/hostedtoolcache/go/1.21.11/x64/src/runtime/proc.go:267"}
 
 
 
