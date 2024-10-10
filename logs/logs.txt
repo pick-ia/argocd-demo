@@ -1,61 +1,12 @@
-raul@raul-VirtualBox:~/argo-events-configs$ kubectl describe sensor cron-sensor -n argo-events
-Name:         cron-sensor
-Namespace:    argo-events
-Labels:       <none>
-Annotations:  <none>
-API Version:  argoproj.io/v1alpha1
-Kind:         Sensor
-Metadata:
-  Creation Timestamp:  2024-10-10T19:35:54Z
-  Finalizers:
-    sensor-controller
-  Generation:        3
-  Resource Version:  415960
-  UID:               696d1196-d249-4f5b-8363-6e0a44f79f3e
-Spec:
-  Dependencies:
-    Event Name:         test-timer
-    Event Source Name:  cron-event-source
-    Name:               test-cron-event
-  Logging Fields:       <nil>
-  Triggers:
-    Template:
-      Conditions:  test-cron-event
-      k8s:
-        Group:      
-        Operation:  Create
-        Resource:   Pod
-        Source:
-          Resource:
-            API Version:  v1
-            Kind:         Pod
-            Metadata:
-              Generate Name:  log-pod-
-              Namespace:      argo-events
-            Spec:
-              Containers:
-                Args:
-                  echo 'Event detected from Cron!'; sleep 300
-                Command:
-                  /bin/sh
-                  -c
-                Image:         alpine
-                Name:          log-container
-              Restart Policy:  Never
-        Version:               v1
-      Name:                    log-trigger
-Status:
-  Conditions:
-    Last Transition Time:  2024-10-10T19:55:52Z
-    Status:                True
-    Type:                  DependenciesProvided
-    Last Transition Time:  2024-10-10T19:55:52Z
-    Status:                Unknown
-    Type:                  Deployed
-    Last Transition Time:  2024-10-10T19:55:52Z
-    Message:               trigger for template log-trigger is invalid, unknown operation type Create
-    Reason:                InvalidTriggers
-    Status:                False
-    Type:                  TriggersProvided
-Events:                    <none>
+raul@raul-VirtualBox:~/argo-events-configs$ kubectl logs -l sensor-name=cron-sensor -n argo-events
+{"level":"info","ts":1728590587.395957,"logger":"argo-events.sensor","caller":"leaderelection/leaderelection.go:162","msg":"I'm the LEADER, starting ...","sensorName":"cron-sensor"}
+{"level":"info","ts":1728590587.4003198,"logger":"argo-events.sensor","caller":"sensors/listener.go:489","msg":"Dependency expression for trigger log-trigger: test-cron-event","sensorName":"cron-sensor"}
+{"level":"info","ts":1728590587.399943,"logger":"argo-events.sensor","caller":"sensors/listener.go:337","msg":"Sensor started.","sensorName":"cron-sensor"}
+{"level":"info","ts":1728590587.400461,"logger":"argo-events.sensor","caller":"base/stan.go:51","msg":"NATS auth strategy: None","sensorName":"cron-sensor","clientID":"client-1284873275-3"}
+{"level":"info","ts":1728590587.4172015,"logger":"argo-events.sensor","caller":"base/stan.go:60","msg":"Connected to NATS server.","sensorName":"cron-sensor","clientID":"client-1284873275-3"}
+{"level":"info","ts":1728590587.432182,"logger":"argo-events.sensor","caller":"base/stan.go:73","msg":"Connected to NATS streaming server.","sensorName":"cron-sensor","clientID":"client-1284873275-3"}
+{"level":"info","ts":1728590587.4323545,"logger":"argo-events.sensor","caller":"sensors/listener.go:300","msg":"starting eventbus connection daemon for client STANTriggerConn{ClientID:client-1284873275-3,Sensor:cron-sensor,Trigger:log-trigger}...","sensorName":"cron-sensor","triggerName":"log-trigger"}
+{"level":"info","ts":1728590587.4325051,"logger":"argo-events.sensor","caller":"sensors/listener.go:286","msg":"started subscribing to events for trigger log-trigger with client connection STANTriggerConn{ClientID:client-1284873275-3,Sensor:cron-sensor,Trigger:log-trigger}","sensorName":"cron-sensor","triggerName":"log-trigger"}
+{"level":"info","ts":1728590587.4461362,"logger":"argo-events.sensor","caller":"sensor/trigger_conn.go:107","msg":"Subscribed to subject eventbus-argo-events using durable name client-1284873275","sensorName":"cron-sensor","triggerName":"log-trigger","clientID":"client-1284873275-3"}
+{"level":"info","ts":1728590587.446316,"logger":"argo-events.sensor","caller":"sensor/trigger_conn.go:115","msg":"starting ExactOnce cache clean up daemon ...","sensorName":"cron-sensor","triggerName":"log-trigger","clientID":"client-1284873275-3"}
 
