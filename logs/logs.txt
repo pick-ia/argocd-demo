@@ -1,56 +1,56 @@
 raul@raul-VirtualBox:~/argo-events-configs$ kubectl logs eventbus-default-stan-0 -n argo-events
 Defaulted container "stan" out of: stan, metrics
-[1] 2024/10/10 19:51:47.115301 [INF] STREAM: Starting nats-streaming-server[eventbus-default] version 0.22.1
-[1] 2024/10/10 19:51:47.115415 [INF] STREAM: ServerID: q2XK1qbKofSvK2LgJGqSuv
-[1] 2024/10/10 19:51:47.115462 [INF] STREAM: Go version: go1.16.6
-[1] 2024/10/10 19:51:47.115498 [INF] STREAM: Git commit: [27f1d60]
-[1] 2024/10/10 19:51:47.289842 [INF] Starting nats-server
-[1] 2024/10/10 19:51:47.291585 [INF]   Version:  2.3.3
-[1] 2024/10/10 19:51:47.291688 [INF]   Git:      [aaba459]
-[1] 2024/10/10 19:51:47.291724 [INF]   Name:     NBRJFWPL66DCIHELZYRDKNVL6BLIUBGMJ4KA2QCDYRMQPDQAS4AAVGXQ
-[1] 2024/10/10 19:51:47.291760 [INF]   ID:       NBRJFWPL66DCIHELZYRDKNVL6BLIUBGMJ4KA2QCDYRMQPDQAS4AAVGXQ
-[1] 2024/10/10 19:51:47.291795 [INF] Using configuration file: /etc/stan-config/stan.conf
-[1] 2024/10/10 19:51:47.515562 [INF] Starting http monitor on 0.0.0.0:8222
-[1] 2024/10/10 19:51:47.515920 [INF] Listening for client connections on 0.0.0.0:4222
-[1] 2024/10/10 19:51:47.516277 [INF] Server is ready
-[1] 2024/10/10 19:51:47.516497 [INF] Cluster name is q2XK1qbKofSvK2LgJGqSys
-[1] 2024/10/10 19:51:47.516533 [WRN] Cluster name was dynamically generated, consider setting one
-[1] 2024/10/10 19:51:47.516581 [INF] Listening for route connections on 0.0.0.0:6222
-[1] 2024/10/10 19:51:47.699914 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-0.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-0.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
-[1] 2024/10/10 19:51:47.762975 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-1.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-1.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
-[1] 2024/10/10 19:51:47.762984 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-2.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-2.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
-[1] 2024/10/10 19:51:47.797876 [INF] STREAM: Recovering the state...
-[1] 2024/10/10 19:51:47.799911 [INF] STREAM: No recovered state
-[1] 2024/10/10 19:51:47.805802 [INF] STREAM: Cluster Node ID : eventbus-default-stan-0
-[1] 2024/10/10 19:51:47.805846 [INF] STREAM: Cluster Log Path: /data/stan/logs
-[1] 2024/10/10 19:51:47.805882 [INF] STREAM: Cluster known peers:
-[1] 2024/10/10 19:51:47.805919 [INF] STREAM: peer 1: "eventbus-default-stan-1"
-[1] 2024/10/10 19:51:47.805955 [INF] STREAM: peer 2: "eventbus-default-stan-2"
-[1] 2024/10/10 19:51:48.050291 [INF] STREAM: Message store is RAFT_FILE
-[1] 2024/10/10 19:51:48.050500 [INF] STREAM: Store location: /data/stan/store
-[1] 2024/10/10 19:51:48.051447 [INF] STREAM: ---------- Store Limits ----------
-[1] 2024/10/10 19:51:48.051601 [INF] STREAM: Channels:                  100 *
-[1] 2024/10/10 19:51:48.051832 [INF] STREAM: --------- Channels Limits --------
-[1] 2024/10/10 19:51:48.051870 [INF] STREAM:   Subscriptions:          1000 *
-[1] 2024/10/10 19:51:48.051906 [INF] STREAM:   Messages     :       1000000 *
-[1] 2024/10/10 19:51:48.051939 [INF] STREAM:   Bytes        :       1.00 GB
-[1] 2024/10/10 19:51:48.051973 [INF] STREAM:   Age          :       72h0m0s
-[1] 2024/10/10 19:51:48.052002 [INF] STREAM:   Inactivity   :     unlimited *
-[1] 2024/10/10 19:51:48.052035 [INF] STREAM: ----------------------------------
-[1] 2024/10/10 19:52:18.243538 [INF] 10.244.0.166:33594 - rid:9 - Route connection created
-[1] 2024/10/10 19:52:18.286119 [ERR] 10.244.0.166:33594 - rid:9 - Rejecting connection, cluster name "fatvcqW5qjPs15FrKkcEwL" does not match "q2XK1qbKofSvK2LgJGqSys"
-[1] 2024/10/10 19:52:18.292367 [INF] 10.244.0.166:33594 - rid:9 - Router connection closed: Cluster Name Conflict
-[1] 2024/10/10 19:52:18.294336 [ERR] 10.244.0.166:33594 - rid:9 - cluster name from remote server conflicts
-[1] 2024/10/10 19:52:18.296348 [INF] 10.244.0.167:58078 - rid:10 - Route connection created
-[1] 2024/10/10 19:52:18.430179 [ERR] 10.244.0.167:58078 - rid:10 - Rejecting connection, cluster name "fatvcqW5qjPs15FrKkcEwL" does not match "q2XK1qbKofSvK2LgJGqSys"
-[1] 2024/10/10 19:52:18.430227 [INF] 10.244.0.167:58078 - rid:10 - Router connection closed: Cluster Name Conflict
-[1] 2024/10/10 19:52:18.430317 [ERR] 10.244.0.167:58078 - rid:10 - cluster name from remote server conflicts
-[1] 2024/10/10 19:52:18.489429 [INF] 10.244.0.167:6222 - rid:11 - Route connection created
-[1] 2024/10/10 19:52:18.666951 [INF] 10.244.0.166:6222 - rid:12 - Route connection created
-[1] 2024/10/10 19:52:19.615720 [INF] 10.244.0.166:33596 - rid:13 - Route connection created
-[1] 2024/10/10 19:52:19.623975 [INF] 10.244.0.166:33596 - rid:13 - Router connection closed: Duplicate Route
-[1] 2024/10/10 19:52:19.686953 [INF] 10.244.0.167:58094 - rid:14 - Route connection created
-[1] 2024/10/10 19:52:19.688314 [INF] 10.244.0.167:58094 - rid:14 - Router connection closed: Duplicate Route
-[1] 2024/10/10 20:03:07.571386 [INF] STREAM: Channel "eventbus-argo-events" has been created
+[1] 2024/10/10 20:33:35.240610 [INF] STREAM: Starting nats-streaming-server[eventbus-default] version 0.22.1
+[1] 2024/10/10 20:33:35.240877 [INF] STREAM: ServerID: x0lwMlhaP1N7xqOm8dCA3y
+[1] 2024/10/10 20:33:35.240937 [INF] STREAM: Go version: go1.16.6
+[1] 2024/10/10 20:33:35.240972 [INF] STREAM: Git commit: [27f1d60]
+[1] 2024/10/10 20:33:35.242373 [INF] Starting nats-server
+[1] 2024/10/10 20:33:35.242424 [INF]   Version:  2.3.3
+[1] 2024/10/10 20:33:35.242459 [INF]   Git:      [aaba459]
+[1] 2024/10/10 20:33:35.242494 [INF]   Name:     NDUMZXZNFCVDSSFCWFKBWRNQJSFZXQFOER57MW2DAH4WS7Z6QZNEWVUA
+[1] 2024/10/10 20:33:35.242885 [INF]   ID:       NDUMZXZNFCVDSSFCWFKBWRNQJSFZXQFOER57MW2DAH4WS7Z6QZNEWVUA
+[1] 2024/10/10 20:33:35.243215 [INF] Using configuration file: /etc/stan-config/stan.conf
+[1] 2024/10/10 20:33:35.248434 [INF] Starting http monitor on 0.0.0.0:8222
+[1] 2024/10/10 20:33:35.249259 [INF] Listening for client connections on 0.0.0.0:4222
+[1] 2024/10/10 20:33:35.251402 [INF] Server is ready
+[1] 2024/10/10 20:33:35.251453 [INF] Cluster name is x0lwMlhaP1N7xqOm8dCA8s
+[1] 2024/10/10 20:33:35.251500 [WRN] Cluster name was dynamically generated, consider setting one
+[1] 2024/10/10 20:33:35.252417 [INF] Listening for route connections on 0.0.0.0:6222
+[1] 2024/10/10 20:33:35.623718 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-0.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-0.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
+[1] 2024/10/10 20:33:35.700604 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-2.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-2.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
+[1] 2024/10/10 20:33:35.733853 [INF] STREAM: Recovering the state...
+[1] 2024/10/10 20:33:35.734045 [INF] STREAM: No recovered state
+[1] 2024/10/10 20:33:35.734267 [INF] STREAM: Cluster Node ID : eventbus-default-stan-0
+[1] 2024/10/10 20:33:35.734310 [INF] STREAM: Cluster Log Path: /data/stan/logs
+[1] 2024/10/10 20:33:35.734340 [INF] STREAM: Cluster known peers:
+[1] 2024/10/10 20:33:35.734403 [INF] STREAM: peer 1: "eventbus-default-stan-1"
+[1] 2024/10/10 20:33:35.734439 [INF] STREAM: peer 2: "eventbus-default-stan-2"
+[1] 2024/10/10 20:33:35.773406 [INF] STREAM: Message store is RAFT_FILE
+[1] 2024/10/10 20:33:35.773503 [INF] STREAM: Store location: /data/stan/store
+[1] 2024/10/10 20:33:35.773838 [INF] STREAM: ---------- Store Limits ----------
+[1] 2024/10/10 20:33:35.773876 [INF] STREAM: Channels:                  100 *
+[1] 2024/10/10 20:33:35.773910 [INF] STREAM: --------- Channels Limits --------
+[1] 2024/10/10 20:33:35.773944 [INF] STREAM:   Subscriptions:          1000 *
+[1] 2024/10/10 20:33:35.773978 [INF] STREAM:   Messages     :       1000000 *
+[1] 2024/10/10 20:33:35.774011 [INF] STREAM:   Bytes        :       1.00 GB
+[1] 2024/10/10 20:33:35.774055 [INF] STREAM:   Age          :       72h0m0s
+[1] 2024/10/10 20:33:35.774089 [INF] STREAM:   Inactivity   :     unlimited *
+[1] 2024/10/10 20:33:35.774218 [INF] STREAM: ----------------------------------
+[1] 2024/10/10 20:33:35.960945 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-1.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-1.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
+[1] 2024/10/10 20:34:05.507572 [INF] 10.244.0.171:49802 - rid:11 - Route connection created
+[1] 2024/10/10 20:34:05.508447 [ERR] 10.244.0.171:49802 - rid:11 - Rejecting connection, cluster name "o0ss2nG5nk5b7PzIK54u2B" does not match "x0lwMlhaP1N7xqOm8dCA8s"
+[1] 2024/10/10 20:34:05.508554 [INF] 10.244.0.171:49802 - rid:11 - Router connection closed: Cluster Name Conflict
+[1] 2024/10/10 20:34:05.508899 [ERR] 10.244.0.171:49802 - rid:11 - cluster name from remote server conflicts
+[1] 2024/10/10 20:34:05.743882 [INF] 10.244.0.172:37662 - rid:12 - Route connection created
+[1] 2024/10/10 20:34:05.999319 [INF] 10.244.0.172:6222 - rid:13 - Route connection created
+[1] 2024/10/10 20:34:06.002527 [INF] 10.244.0.172:6222 - rid:13 - Router connection closed: Duplicate Route
+[1] 2024/10/10 20:34:06.247821 [INF] STREAM: server became leader, performing leader promotion actions
+[1] 2024/10/10 20:34:06.272371 [INF] STREAM: finished leader promotion actions
+[1] 2024/10/10 20:34:06.272409 [INF] STREAM: Streaming Server is ready
+[1] 2024/10/10 20:34:06.421793 [INF] 10.244.0.171:6222 - rid:14 - Route connection created
+[1] 2024/10/10 20:34:06.630164 [INF] 10.244.0.171:49814 - rid:15 - Route connection created
+[1] 2024/10/10 20:34:06.643288 [INF] 10.244.0.171:49814 - rid:15 - Router connection closed: Duplicate Route
+[1] 2024/10/10 20:34:09.467100 [INF] STREAM: Channel "eventbus-argo-events" has been created
+
 
 
