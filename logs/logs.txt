@@ -1,56 +1,120 @@
-raul@raul-VirtualBox:~/argo-events-configs$ kubectl logs eventbus-default-stan-0 -n argo-events
-Defaulted container "stan" out of: stan, metrics
-[1] 2024/10/10 20:33:35.240610 [INF] STREAM: Starting nats-streaming-server[eventbus-default] version 0.22.1
-[1] 2024/10/10 20:33:35.240877 [INF] STREAM: ServerID: x0lwMlhaP1N7xqOm8dCA3y
-[1] 2024/10/10 20:33:35.240937 [INF] STREAM: Go version: go1.16.6
-[1] 2024/10/10 20:33:35.240972 [INF] STREAM: Git commit: [27f1d60]
-[1] 2024/10/10 20:33:35.242373 [INF] Starting nats-server
-[1] 2024/10/10 20:33:35.242424 [INF]   Version:  2.3.3
-[1] 2024/10/10 20:33:35.242459 [INF]   Git:      [aaba459]
-[1] 2024/10/10 20:33:35.242494 [INF]   Name:     NDUMZXZNFCVDSSFCWFKBWRNQJSFZXQFOER57MW2DAH4WS7Z6QZNEWVUA
-[1] 2024/10/10 20:33:35.242885 [INF]   ID:       NDUMZXZNFCVDSSFCWFKBWRNQJSFZXQFOER57MW2DAH4WS7Z6QZNEWVUA
-[1] 2024/10/10 20:33:35.243215 [INF] Using configuration file: /etc/stan-config/stan.conf
-[1] 2024/10/10 20:33:35.248434 [INF] Starting http monitor on 0.0.0.0:8222
-[1] 2024/10/10 20:33:35.249259 [INF] Listening for client connections on 0.0.0.0:4222
-[1] 2024/10/10 20:33:35.251402 [INF] Server is ready
-[1] 2024/10/10 20:33:35.251453 [INF] Cluster name is x0lwMlhaP1N7xqOm8dCA8s
-[1] 2024/10/10 20:33:35.251500 [WRN] Cluster name was dynamically generated, consider setting one
-[1] 2024/10/10 20:33:35.252417 [INF] Listening for route connections on 0.0.0.0:6222
-[1] 2024/10/10 20:33:35.623718 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-0.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-0.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
-[1] 2024/10/10 20:33:35.700604 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-2.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-2.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
-[1] 2024/10/10 20:33:35.733853 [INF] STREAM: Recovering the state...
-[1] 2024/10/10 20:33:35.734045 [INF] STREAM: No recovered state
-[1] 2024/10/10 20:33:35.734267 [INF] STREAM: Cluster Node ID : eventbus-default-stan-0
-[1] 2024/10/10 20:33:35.734310 [INF] STREAM: Cluster Log Path: /data/stan/logs
-[1] 2024/10/10 20:33:35.734340 [INF] STREAM: Cluster known peers:
-[1] 2024/10/10 20:33:35.734403 [INF] STREAM: peer 1: "eventbus-default-stan-1"
-[1] 2024/10/10 20:33:35.734439 [INF] STREAM: peer 2: "eventbus-default-stan-2"
-[1] 2024/10/10 20:33:35.773406 [INF] STREAM: Message store is RAFT_FILE
-[1] 2024/10/10 20:33:35.773503 [INF] STREAM: Store location: /data/stan/store
-[1] 2024/10/10 20:33:35.773838 [INF] STREAM: ---------- Store Limits ----------
-[1] 2024/10/10 20:33:35.773876 [INF] STREAM: Channels:                  100 *
-[1] 2024/10/10 20:33:35.773910 [INF] STREAM: --------- Channels Limits --------
-[1] 2024/10/10 20:33:35.773944 [INF] STREAM:   Subscriptions:          1000 *
-[1] 2024/10/10 20:33:35.773978 [INF] STREAM:   Messages     :       1000000 *
-[1] 2024/10/10 20:33:35.774011 [INF] STREAM:   Bytes        :       1.00 GB
-[1] 2024/10/10 20:33:35.774055 [INF] STREAM:   Age          :       72h0m0s
-[1] 2024/10/10 20:33:35.774089 [INF] STREAM:   Inactivity   :     unlimited *
-[1] 2024/10/10 20:33:35.774218 [INF] STREAM: ----------------------------------
-[1] 2024/10/10 20:33:35.960945 [ERR] Error trying to connect to route (attempt 1): lookup for host "eventbus-default-stan-1.eventbus-default-stan-svc.argo-events.svc": lookup eventbus-default-stan-1.eventbus-default-stan-svc.argo-events.svc on 10.96.0.10:53: no such host
-[1] 2024/10/10 20:34:05.507572 [INF] 10.244.0.171:49802 - rid:11 - Route connection created
-[1] 2024/10/10 20:34:05.508447 [ERR] 10.244.0.171:49802 - rid:11 - Rejecting connection, cluster name "o0ss2nG5nk5b7PzIK54u2B" does not match "x0lwMlhaP1N7xqOm8dCA8s"
-[1] 2024/10/10 20:34:05.508554 [INF] 10.244.0.171:49802 - rid:11 - Router connection closed: Cluster Name Conflict
-[1] 2024/10/10 20:34:05.508899 [ERR] 10.244.0.171:49802 - rid:11 - cluster name from remote server conflicts
-[1] 2024/10/10 20:34:05.743882 [INF] 10.244.0.172:37662 - rid:12 - Route connection created
-[1] 2024/10/10 20:34:05.999319 [INF] 10.244.0.172:6222 - rid:13 - Route connection created
-[1] 2024/10/10 20:34:06.002527 [INF] 10.244.0.172:6222 - rid:13 - Router connection closed: Duplicate Route
-[1] 2024/10/10 20:34:06.247821 [INF] STREAM: server became leader, performing leader promotion actions
-[1] 2024/10/10 20:34:06.272371 [INF] STREAM: finished leader promotion actions
-[1] 2024/10/10 20:34:06.272409 [INF] STREAM: Streaming Server is ready
-[1] 2024/10/10 20:34:06.421793 [INF] 10.244.0.171:6222 - rid:14 - Route connection created
-[1] 2024/10/10 20:34:06.630164 [INF] 10.244.0.171:49814 - rid:15 - Route connection created
-[1] 2024/10/10 20:34:06.643288 [INF] 10.244.0.171:49814 - rid:15 - Router connection closed: Duplicate Route
-[1] 2024/10/10 20:34:09.467100 [INF] STREAM: Channel "eventbus-argo-events" has been created
+Installation¶
+Requirements¶
+
+    Kubernetes cluster >=v1.11
+    Installed the kubectl command-line tool >v1.11.0
+
+Using kubectl¶
+Cluster-wide Installation¶
+
+    Create the namespace.
+
+kubectl create namespace argo-events
+
+Deploy Argo Events SA, ClusterRoles, and Controller for Sensor, EventBus, and EventSource.
+
+kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install.yaml
+# Install with a validating admission controller
+kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/install-validating-webhook.yaml
+
+NOTE:
+
+ * On GKE, you may need to grant your account the ability to create new custom resource definitions and clusterroles
+
+        kubectl create clusterrolebinding YOURNAME-cluster-admin-binding --clusterrole=cluster-admin --user=YOUREMAIL@gmail.com
+
+ * On OpenShift:
+     - Make sure to grant `anyuid` scc to the service accounts.
+
+        oc adm policy add-scc-to-user anyuid system:serviceaccount:argo-events:argo-events-sa system:serviceaccount:argo-events:argo-events-webhook-sa
+
+     - Add update permissions for the `deployments/finalizers` and `clusterroles/finalizers` of the argo-events-webhook ClusterRole(this is necessary for the validating admission controller)
+
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - clusterroles/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps
+          resources:
+          - deployments/finalizers
+          verbs:
+          - update
+
+Deploy the eventbus.
+
+    kubectl apply -n argo-events -f https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
+
+Namespace Installation¶
+
+    Create the namespace.
+
+kubectl create namespace argo-events
+
+Deploy Argo Events SA, ClusterRoles, and Controller for Sensor, EventBus, and EventSource.
+
+kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-events/stable/manifests/namespace-install.yaml
+
+NOTE:
+
+ * On GKE, you may need to grant your account the ability to create new custom resource definitions
+
+        kubectl create clusterrolebinding YOURNAME-cluster-admin-binding --clusterrole=cluster-admin --user=YOUREMAIL@gmail.com
+
+ * On OpenShift:
+     - Make sure to grant `anyuid` scc to the service account.
+
+        oc adm policy add-scc-to-user anyuid system:serviceaccount:argo-events:default
+
+     - Add update permissions for the `deployments/finalizers` and `clusterroles/finalizers` of the argo-events-webhook ClusterRole(this is necessary for the validating admission controller)
+
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - clusterroles/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - apps
+          resources:
+          - deployments/finalizers
+          verbs:
+          - update
+
+Deploy the eventbus.
+
+    kubectl apply -n argo-events -f https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
+
+Using Kustomize¶
+
+Use either cluster-install, or cluster-install-with-extension, or namespace-install folder as your base for Kustomize.
+
+kustomization.yaml:
+
+bases:
+  - github.com/argoproj/argo-events/manifests/cluster-install
+  # OR
+  - github.com/argoproj/argo-events/manifests/namespace-install
+
+Using Helm Chart¶
+
+Make sure you have helm client installed. To install helm, follow the link.
+
+    Add argoproj repository.
+
+helm repo add argo https://argoproj.github.io/argo-helm
+
+The helm chart for argo-events is maintained solely by the community and hence the image version for controllers can go out of sync. Update the image version in values.yaml to v1.0.0.
+
+Install argo-events chart.
+
+helm install argo-events argo/argo-events -n argo-events --create-namespace
+
+Deploy the eventbus.
+
+kubectl apply -n argo-events -f https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
 
 
 
