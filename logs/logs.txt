@@ -1,4 +1,4 @@
-raul@raul-VirtualBox:~/argo-events-configs$ kubectl logs -l sensor-name=cron-sensor -n argo-events
+aul@raul-VirtualBox:~/argo-events-configs$ kubectl logs -l sensor-name=cron-sensor -n argo-events
 {"level":"info","ts":1728590587.395957,"logger":"argo-events.sensor","caller":"leaderelection/leaderelection.go:162","msg":"I'm the LEADER, starting ...","sensorName":"cron-sensor"}
 {"level":"info","ts":1728590587.4003198,"logger":"argo-events.sensor","caller":"sensors/listener.go:489","msg":"Dependency expression for trigger log-trigger: test-cron-event","sensorName":"cron-sensor"}
 {"level":"info","ts":1728590587.399943,"logger":"argo-events.sensor","caller":"sensors/listener.go:337","msg":"Sensor started.","sensorName":"cron-sensor"}
