@@ -11,6 +11,7 @@ spec:
       schedule: "*/5 * * * *"  # Cada 5 minutos
       timezone: "UTC"
       payload: '{"message": "Hello from Cron EventSource!"}'
+  eventBusName: default  # Especificamos que este EventSource usará el EventBus "default"
 
 #------------------------------------------
 Componentes y Configuraciones:
