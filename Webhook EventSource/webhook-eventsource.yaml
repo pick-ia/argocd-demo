@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: webhook-event-source
+  namespace: argo-events
+spec:
+  webhook:
+    example:
+      endpoint: /trigger
+      method: POST
+      port: "12000"
+      url: "http://your-service/trigger"
+#-----------------------------------------------
+Caso de Uso:
+Imagina un sistema donde se desea que una aplicación responda a eventos HTTP externos, como una solicitud POST a una URL específica. Esto puede ser útil para desencadenar procesos a partir de eventos que ocurren fuera del clúster.
+endpoint: Define la URL en el clúster donde los eventos serán recibidos.
+method: Indica que el evento se disparará cuando llegue una solicitud POST.
