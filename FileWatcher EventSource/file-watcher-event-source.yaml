@@ -1,13 +1,15 @@
-apiVersion: argoproj.io/v1alpha1
-kind: EventSource
+apiVersion: argoproj.io/v1alpha1  # Versión de la API de Argo Events.
+kind: EventSource  # Tipo de recurso: EventSource.
 metadata:
-  name: filewatcher-event-source
-  namespace: argo-events
+  name: filewatcher-event-source  # Nombre del EventSource.
+  namespace: argo-events  # Namespace donde se creará el EventSource.
 spec:
-  file:
-    example:
-      watchPath: "/tmp/watched-dir"
+  file:  # Tipo de EventSource: File.
+    example:  # Nombre del watcher.
+      watchPath: "/tmp/watched-dir"  # Ruta del sistema de archivos que se monitorizará.
+
 #------------------------
 Caso de Uso:
-Se desea observar cambios en un directorio específico de un sistema de archivos y desencadenar una acción cuando un nuevo archivo es creado. Esto es común para sistemas de monitoreo de logs o sistemas de almacenamiento
+Se desea observar cambios en un directorio específico de un sistema de archivos y desencadenar una acción cuando un nuevo archivo es creado. 
+Esto es común para sistemas de monitoreo de logs o sistemas de almacenamiento
 watchPath: Ruta donde el sistema estará observando para detectar cualquier archivo nuevo
