@@ -1,16 +1,17 @@
-apiVersion: argoproj.io/v1alpha1
-kind: EventSource
+apiVersion: argoproj.io/v1alpha1  # Especifica la versión de la API que se usa para definir este recurso de Argo Events.
+kind: EventSource  # Define el tipo de recurso que se está creando, en este caso un EventSource (fuente de eventos).
 metadata:
-  name: cron-event-source
-  namespace: argo-events
+  name: cron-event-source  # El nombre del EventSource. Este identificador se usará para enlazarlo con otros recursos.
+  namespace: argo-events  # El namespace en el que se creará el recurso, en este caso es 'argo-events'.
 spec:
   template:
-    serviceAccountName: argo-events-sa
-  cron:
-    example:
-      schedule: "*/5 * * * *"  # Cada 5 minutos
-      timezone: "UTC"
-      payload: '{"message": "Tarea programada cada 5 minutos ejecutada."}'
+    serviceAccountName: argo-events-sa  # La cuenta de servicio que se usará para ejecutar el EventSource.
+  cron:  # Define el tipo de EventSource. En este caso, estamos configurando un cron.
+    example:  # Nombre del cron dentro del EventSource, lo usaremos como identificador en el Sensor.
+      schedule: "*/5 * * * *"  # Define la expresión cron para que se ejecute cada 5 minutos.
+      timezone: "UTC"  # Especifica la zona horaria en la que se basará la ejecución.
+      payload: '{"message": "Hello from Cron EventSource!"}'  # Contenido del mensaje que se enviará cuando se dispare el evento.
+
 
 #--------------
 
