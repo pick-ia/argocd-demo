@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: webhook-sensor
+  namespace: argo-events
+spec:
+  dependencies:
+    - name: test-webhook-event
+      eventSourceName: webhook-event-source
+      eventName: example
+  triggers:
+    - template:
+        name: log-trigger
+        k8s:
+          operation: create
+          source:
+            resource:
+              apiVersion: v1
+              kind: Pod
+              metadata:
+                generateName: webhook-pod-
+                namespace: argo-events
+              spec:
+                containers:
+                  - name: log-container
+                    image: alpine
+                    command: ["/bin/sh", "-c"]
+                    args: ["echo 'Webhook recibido'; sleep 300"]
+                restartPolicy: Never
