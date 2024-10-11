@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: cron-event-source
+  namespace: argo-events
+spec:
+  template:
+    serviceAccountName: argo-events-sa
+  cron:
+    example:
+      schedule: "*/5 * * * *"  # Cada 5 minutos
+      timezone: "UTC"
+      payload: '{"message": "Tarea programada cada 5 minutos ejecutada."}'
+
+#--------------
+
+schedule: Se utiliza una expresión cron para definir que este evento se dispare cada 5 minutos.
+payload: Un mensaje JSON que contiene los datos del evento.
