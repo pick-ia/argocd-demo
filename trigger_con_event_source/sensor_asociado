@@ -1,1 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: cron-sensor
+  namespace: argo-events
+spec:
+  dependencies:
+    - name: test-cron-event
+      eventSourceName: cron-event-source
+      eventName: example
+  triggers:
+    - template:
+        name: log-trigger
+        k8s:
+          operation: create
+          source:
+            resource:
+              apiVersion: v1
+              kind: Pod
+              metadata:
+                generateName: log-pod-
+                namespace: argo-events
+              spec:
+                containers:
+                  - name: log-container
+                    image: alpine
+                    command: ["/bin/sh", "-c"]
+                    args: ["echo 'Evento de Cron detectado'; sleep 300"]
+                restartPolicy: Never
 
+#-----------------------
+
+dependencies: El sensor espera recibir eventos del EventSource llamado cron-event-source.
+triggers: Cuando se detecta un evento, se crea un pod que ejecuta un comando simple para loguear que el evento ha sido detectado.
