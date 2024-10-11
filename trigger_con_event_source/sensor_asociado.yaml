@@ -1,32 +1,33 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Sensor
+apiVersion: argoproj.io/v1alpha1  # Versión de la API de Argo Events.
+kind: Sensor  # Tipo de recurso: Sensor, que responde a los eventos generados por el EventSource.
 metadata:
-  name: cron-sensor
-  namespace: argo-events
+  name: cron-sensor  # El nombre del Sensor.
+  namespace: argo-events  # El namespace en el que vive este Sensor.
 spec:
-  dependencies:
-    - name: test-cron-event
-      eventSourceName: cron-event-source
-      eventName: example
-  triggers:
+  dependencies:  # Aquí se definen las dependencias del Sensor, que son eventos que espera recibir.
+    - name: test-cron-event  # Nombre de la dependencia. Este nombre es arbitrario pero se usa en las condiciones de activación.
+      eventSourceName: cron-event-source  # El EventSource que genera el evento, debe coincidir con el nombre del EventSource.
+      eventName: example  # El evento específico dentro del EventSource (el cron "example").
+  triggers:  # Define lo que hará el Sensor cuando detecte el evento.
     - template:
-        name: log-trigger
-        k8s:
-          operation: create
-          source:
+        name: log-trigger  # El nombre de este trigger (disparador).
+        k8s:  # El trigger realizará una operación en Kubernetes.
+          operation: create  # La operación que se ejecutará es la creación de un nuevo recurso.
+          source:  # Aquí se especifica el recurso que se creará cuando el evento ocurra.
             resource:
-              apiVersion: v1
-              kind: Pod
+              apiVersion: v1  # Versión de la API del recurso que se creará.
+              kind: Pod  # Tipo de recurso a crear, en este caso un pod.
               metadata:
-                generateName: log-pod-
-                namespace: argo-events
+                generateName: log-pod-  # El nombre del pod. Kubernetes añadirá un sufijo único.
+                namespace: argo-events  # El namespace en el que se creará el pod.
               spec:
-                containers:
-                  - name: log-container
-                    image: alpine
-                    command: ["/bin/sh", "-c"]
-                    args: ["echo 'Evento de Cron detectado'; sleep 300"]
-                restartPolicy: Never
+                containers:  # Especificación del contenedor dentro del pod.
+                  - name: log-container  # El nombre del contenedor.
+                    image: alpine  # La imagen que usará el contenedor (un contenedor ligero de Alpine).
+                    command: ["/bin/sh", "-c"]  # Comando que se ejecutará dentro del contenedor.
+                    args: ["echo 'Evento de Cron detectado'; sleep 300"]  # Argumentos del comando: Imprimir mensaje y dormir 5 minutos.
+                restartPolicy: Never  # El pod no se reiniciará después de su ejecución.
+
 
 #-----------------------
 
