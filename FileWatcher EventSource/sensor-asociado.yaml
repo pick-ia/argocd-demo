@@ -1,1 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: filewatcher-sensor
+  namespace: argo-events
+spec:
+  dependencies:
+    - name: test-filewatcher-event
+      eventSourceName: filewatcher-event-source
+      eventName: example
+  triggers:
+    - template:
+        name: log-trigger
+        k8s:
+          operation: create
+          source:
+            resource:
+              apiVersion: v1
+              kind: Pod
+              metadata:
+                generateName: filewatcher-pod-
+                namespace: argo-events
+              spec:
+                containers:
+                  - name: log-container
+                    image: alpine
+                    command: ["/bin/sh", "-c"]
+                    args: ["echo 'Archivo detectado en /tmp/watched-dir'; sleep 300"]
+                restartPolicy: Never
 
