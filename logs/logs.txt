@@ -1,4 +1,4 @@
-ubectl logs pod/cron-event-source-eventsource-mp75p-5b8575cb54-hz2nn -n argo-events
+Kubectl logs pod/cron-event-source-eventsource-mp75p-5b8575cb54-hz2nn -n argo-events
 {"level":"info","ts":1728605590.8736298,"logger":"argo-events.eventsource","caller":"cmd/start.go:63","msg":"starting eventsource server","eventSourceName":"cron-event-source","version":"v1.9.2"}
 {"level":"info","ts":1728605590.876113,"logger":"argo-events.eventsource","caller":"eventsources/eventing.go:454","msg":"Starting event source server...","eventSourceName":"cron-event-source"}
 {"level":"info","ts":1728605590.8764613,"logger":"argo-events.eventsource","caller":"eventbus/driver.go:35","msg":"eventBusConfig: {NATS:&NATSConfig{URL:nats://eventbus-default-stan-svc:4222,ClusterID:*eventbus-default,Auth:*none,AccessSecret:nil,} JetStream:nil Kafka:nil}","eventSourceName":"cron-event-source"}
