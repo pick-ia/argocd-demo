@@ -1,34 +1,29 @@
-kubectl describe eventsources cron-event-source -n argo-events
-Name:         cron-event-source
-Namespace:    argo-events
-Labels:       <none>
-Annotations:  <none>
-API Version:  argoproj.io/v1alpha1
-Kind:         EventSource
-Metadata:
-  Creation Timestamp:  2024-10-10T23:08:53Z
-  Finalizers:
-    eventsource-controller
-  Generation:        3
-  Resource Version:  14038
-  UID:               f34831ed-f9ab-4cab-b0ee-4123fc03deac
-Spec:
-  Cron:
-    Example:
-      Payload:   {"message": "Hello from Cron EventSource!"}
-      Schedule:  */5 * * * *
-      Timezone:  UTC
-  Template:
-    Service Account Name:  argo-events-sa
-Status:
-  Conditions:
-    Last Transition Time:  2024-10-11T00:10:55Z
-    Status:                True
-    Type:                  Deployed
-    Last Transition Time:  2024-10-11T00:10:55Z
-    Status:                True
-    Type:                  SourcesProvided
-Events:                    <none>
+apiVersion: argoproj.io/v1alpha1
+kind: EventBus
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"EventBus","metadata":{"annotations":{},"name":"default","namespace":"argo-events"},"spec":{"nats":{"native":{"auth":"token",">
+  creationTimestamp: "2024-10-10T22:46:37Z"
+  finalizers:
+  - eventbus-controller
+  generation: 3
+  name: default
+  namespace: argo-events
+  resourceVersion: "18919"
+  uid: 454e145b-b99d-4b65-8705-bd5d22259594
+spec:
+  nats:
+    native:
+      auth: nats-client-auth
+      replicas: 2
+status:
+  conditions:
+  - lastTransitionTime: "2024-10-11T01:12:14Z"
+    status: "True"
+    type: Configured
+  - lastTransitionTime: "2024-10-11T01:12:14Z"
+
 
 
 
