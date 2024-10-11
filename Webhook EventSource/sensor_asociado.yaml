@@ -1,29 +1,29 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Sensor
+apiVersion: argoproj.io/v1alpha1  # Versión de la API de Argo Events.
+kind: Sensor  # Tipo de recurso: Sensor.
 metadata:
-  name: webhook-sensor
-  namespace: argo-events
+  name: webhook-sensor  # Nombre del Sensor.
+  namespace: argo-events  # Namespace donde vive este Sensor.
 spec:
-  dependencies:
-    - name: test-webhook-event
-      eventSourceName: webhook-event-source
-      eventName: example
-  triggers:
+  dependencies:  # Dependencias del Sensor.
+    - name: test-webhook-event  # Nombre de la dependencia.
+      eventSourceName: webhook-event-source  # Nombre del EventSource que generará los eventos.
+      eventName: example  # Nombre del evento específico.
+  triggers:  # Define lo que hará el Sensor cuando detecte un evento.
     - template:
-        name: log-trigger
-        k8s:
-          operation: create
+        name: log-trigger  # Nombre del trigger.
+        k8s:  # Operación a realizar en Kubernetes.
+          operation: create  # Operación: Crear un pod.
           source:
             resource:
-              apiVersion: v1
-              kind: Pod
+              apiVersion: v1  # Versión de la API.
+              kind: Pod  # Tipo de recurso: Pod.
               metadata:
-                generateName: webhook-pod-
-                namespace: argo-events
+                generateName: webhook-pod-  # El nombre del pod.
+                namespace: argo-events  # Namespace donde se creará el pod.
               spec:
                 containers:
-                  - name: log-container
-                    image: alpine
-                    command: ["/bin/sh", "-c"]
-                    args: ["echo 'Webhook recibido'; sleep 300"]
-                restartPolicy: Never
+                  - name: log-container  # Nombre del contenedor.
+                    image: alpine  # Imagen del contenedor.
+                    command: ["/bin/sh", "-c"]  # Comando que se ejecutará dentro del contenedor.
+                    args: ["echo 'Webhook recibido'; sleep 300"]  # Argumentos del comando.
+                restartPolicy: Never  # No se reiniciará el pod.
