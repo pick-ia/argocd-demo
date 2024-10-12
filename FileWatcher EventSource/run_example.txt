@@ -10,9 +10,11 @@ Argo Events: Debes tener Argo Events instalado en tu clúster. Puedes instalarlo
 ......................................................
 $->curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash   #--Esto instala Helm
 $->helm version
-$-> helm repo add argo https://argoproj.github.io/argo-helm   # Esto añade los repositorios de argo
+$-> helm repo add argo https://argoproj.github.io/argo-helm   # argo es el nombre del repositorio que estamos añadiendo/creando.
+#Esta es la URL del repositorio de charts de Argo Project.  https://argoproj.github.io/argo-helm 
+#Este repositorio contiene todos los charts relacionados con el ecosistema de Argo, como Argo Events, ArgoCD, Argo Rollouts, etc.
 $-> helm repo update
-$-> helm install argo-events argo/argo-events --namespace argo-events-test --create-namespace   # Esto añade el Charts de argo-events
+$-> helm install argo-events argo/argo-events --namespace argo-events --create-namespace   # Esto añade el Charts de argo-events
 ......................................................
 Paso 2: Crear el Namespace para Argo Events
 ......................................................
