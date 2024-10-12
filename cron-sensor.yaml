@@ -7,7 +7,7 @@ spec:
   dependencies:
     - name: test-cron-event
       eventSourceName: cron-event-source
-      eventName: example   # El nombre del Evento es el nombre que tenemos en el archivo-cron-sensor.yaml
+      eventName: example   # El nombre del Evento es el nombre que tenemos en el archivo-cron-event-source.yaml
   triggers:
     - template:
         name: log-trigger
