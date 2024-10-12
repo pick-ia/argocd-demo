@@ -28,3 +28,4 @@ spec:
                     args: ["echo 'Archivo detectado en /tmp/watched-dir'; sleep 300"]  # Argumentos del comando.
                 restartPolicy: Never  # No se reiniciará el pod.
 
+
