@@ -14,24 +14,41 @@ spec:
   eventBusName: default  # Especificamos que este EventSource usará el EventBus "default"
 
 #------------------------------------------
-Componentes y Configuraciones:
-
-apiVersion y kind:
-
-apiVersion: argoproj.io/v1alpha1 indica la versión de la API de Argo Events.
-kind: EventSource especifica que este recurso es un EventSource.
-metadata:
-
-name: cron-event-source es el nombre del EventSource.
-namespace: argo-events es el espacio de nombres de Kubernetes donde se crea el recurso.
-spec:
-
-cron: es una lista que define uno o más eventos de cron.
-name: Identificador único del cron dentro del EventSource.
-schedule: La expresión cron que determina cuándo se ejecuta el evento. En este caso, "* * * * *" significa que se ejecuta cada minuto.
-timezone: La zona horaria utilizada para el cron, en este caso "UTC".
-payload: La carga útil que se enviará con el evento, aquí un mensaje en formato JSON.
-¿Qué podemos hacer con este archivo?
-
-Este EventSource generará un evento cada minuto con el mensaje especificado en payload. 
-Podemos utilizar este evento para desencadenar acciones en Argo Events, como ejecutar Workflows, enviar notificaciones, actualizar configuraciones, etc.
+Explicación línea por línea:
+apiVersion: argoproj.io/v1alpha1: Versión de la API de Argo Events utilizada para definir el recurso.
+kind: Sensor: Tipo de recurso. Este archivo define un sensor, que actúa como un "escucha" de eventos.
+metadata:: Información de metadatos del sensor.
+name: cron-sensor: Nombre del sensor.
+namespace: argo-events: Namespace donde se despliega el sensor.
+spec:: Especificaciones del sensor.
+dependencies:: Define los eventos a los que el sensor debe reaccionar.
+- name: test-cron-event: Nombre de la dependencia, es decir, cómo se refiere el sensor a este evento.
+eventSourceName: cron-event-source: Nombre del EventSource que proporciona el evento. Debe coincidir con el nombre del archivo cron-event-source.yaml.
+eventName: example: Nombre del evento definido en el EventSource (cron-event-source). Esto vincula al sensor con un evento específico dentro del EventSource.
+triggers:: Define las acciones a realizar cuando se detectan los eventos especificados.
+template:: Plantilla que define cómo debe ser el recurso a disparar.
+name: log-trigger: Nombre del trigger que define la acción.
+conditions: "deps.test-cron-event": Condición que debe cumplirse para que el trigger se dispare. Aquí, el trigger se disparará cuando se detecte test-cron-event.
+k8s:: Define el tipo de recurso que se creará en Kubernetes.
+group: "": Grupo de la API de Kubernetes; vacío significa que es del grupo principal (núcleo).
+version: v1: Versión de la API que se utiliza.
+resource: Pod: Especifica el tipo de recurso a crear, en este caso, un Pod.
+operation: create: Especifica que la operación a realizar es la creación del recurso.
+source:: Define la plantilla del recurso a crear.
+resource:: Especificaciones del Pod.
+apiVersion: v1: Versión del API para el Pod.
+kind: Pod: Especifica que el recurso a crear es un Pod.
+metadata:: Información de metadatos del Pod.
+generateName: log-pod-: Prefijo para el nombre generado del Pod, para que cada instancia tenga un nombre único basado en este prefijo.
+namespace: argo-events: Namespace donde se creará el Pod.
+spec:: Especificaciones del Pod.
+containers:: Lista de contenedores para el Pod.
+- name: log-container: Nombre del contenedor dentro del Pod.
+image: alpine: Imagen de Docker utilizada, en este caso alpine.
+command: ["/bin/sh", "-c"]: Comando base que se ejecutará.
+args: ["echo 'Event detected from Cron!'; sleep 300"]: Argumentos del comando que imprimen un mensaje y luego espera 300 segundos.
+restartPolicy: Never: Indica que el Pod no debe reiniciarse automáticamente después de finalizar.
+Relación entre Ambos Archivos
+cron-event-source.yaml define una fuente de eventos que genera eventos cada 5 minutos.
+cron-sensor.yaml define un sensor que escucha esos eventos generados por el EventSource (cron-event-source). Cuando el evento ocurre, el sensor dispara una acción: crear un Pod en Kubernetes que registre un mensaje en el contenedor (echo 'Event detected from Cron!').
+Esto proporciona un flujo automatizado donde un evento cron desencadena la creación de un Pod en respuesta, lo cual es útil en arquitecturas basadas en eventos.
