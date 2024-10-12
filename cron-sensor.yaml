@@ -33,48 +33,18 @@ spec:
                 restartPolicy: Never
 
 # Componentes y Configuraciones
-Componentes y Configuraciones:
-
-apiVersion y kind:
-
-apiVersion: argoproj.io/v1alpha1 indica la versión de la API de Argo Events.
-kind: Sensor especifica que este recurso es un Sensor.
-metadata:
-
-name: log-sensor es el nombre del Sensor.
-namespace: argo-events es el espacio de nombres donde se crea el recurso.
-spec:
-
-dependencies:
-
-Define las dependencias de eventos que el Sensor está escuchando.
-Cada dependencia incluye:
-name: Nombre de la dependencia.
-eventSourceName: Nombre del EventSource que emite el evento.
-eventName: Nombre específico del evento dentro del EventSource.
-triggers:
-
-Define las acciones que se ejecutarán cuando se reciban los eventos.
-template:
-name: Nombre del trigger.
-argoWorkflow:
-Especifica que el trigger ejecutará un Workflow de Argo Workflows.
-group, version, resource: Identifican el recurso que se gestionará (en este caso, workflows.argoproj.io/v1alpha1).
-operation: La acción a realizar, aquí es submit para crear y ejecutar el Workflow.
-source:
-resource:
-Define el Workflow que se ejecutará.
-metadata:
-generateName: Prefijo para el nombre del Workflow que se generará.
-spec:
-entrypoint: Punto de entrada del Workflow, es decir, el template inicial.
-templates: Lista de templates que definen las tareas del Workflow.
-Cada template incluye:
-name: Nombre del template.
-container: Especifica el contenedor que se ejecutará.
-image: Imagen de Docker a utilizar (aquí, alpine).
-command: Comando a ejecutar (aquí, echo).
-args: Argumentos del comando, utilizando {{(payload)}} para imprimir la carga útil del evento.
-¿Qué podemos hacer con este archivo?
-
-Este Sensor escucha los eventos emitidos por el cron-event-source. Cuando se recibe un evento every-minute, el Sensor desencadena un Workflow de Argo que ejecuta un contenedor de Alpine y utiliza el comando echo para imprimir el mensaje contenido en el payload del evento.
+Explicación línea por línea:
+apiVersion: argoproj.io/v1alpha1: Versión de la API de Argo Events utilizada para definir el recurso.
+kind: EventSource: Tipo de recurso. Este archivo define una fuente de eventos.
+metadata:: Información de metadatos del recurso.
+name: cron-event-source: Nombre del EventSource. Se usará para identificar la fuente de evento.
+namespace: argo-events: Namespace donde este recurso existirá dentro de Kubernetes.
+spec:: Especifica los detalles de la fuente de evento.
+template:: Plantilla para el despliegue del EventSource.
+serviceAccountName: argo-events-sa: El EventSource utilizará una cuenta de servicio llamada argo-events-sa para acceder a los recursos del clúster.
+cron:: Define un cron job como la fuente del evento.
+example:: Nombre del evento dentro del EventSource.
+schedule: "*/5 * * * *": El cron job se ejecutará cada 5 minutos. El formato utilizado aquí es similar a la sintaxis crontab.
+timezone: "UTC": Establece la zona horaria en UTC.
+payload: '{"message": "Hello from Cron EventSource!"}': Contenido que se enviará cuando se dispare el evento. Este payload puede ser utilizado por el componente que reciba el evento.
+eventBusName: default: Nombre del EventBus al cual se enviarán los eventos. default es el EventBus que se configura por defecto en Argo Events.
