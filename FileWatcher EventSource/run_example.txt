@@ -12,7 +12,7 @@ $->curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | ba
 $->helm version
 $-> helm repo add argo https://argoproj.github.io/argo-helm   # Esto añade los repositorios de argo
 $-> helm repo update
-$-> helm install argo-events argo/argo-events --namespace argo-events-test --create-namespace
+$-> helm install argo-events argo/argo-events --namespace argo-events-test --create-namespace   # Esto añade el Charts de argo-events
 ......................................................
 Paso 2: Crear el Namespace para Argo Events
 ......................................................
