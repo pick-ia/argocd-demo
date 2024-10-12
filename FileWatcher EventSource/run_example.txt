@@ -1,0 +1,68 @@
+Paso 1: Configurar el Entorno de Kubernetes
+Antes de empezar, asegúrate de tener un entorno Kubernetes funcionando y configurado. 
+Puedes usar Minikube, Kind, o un clúster en la nube como EKS (AWS), GKE (Google Cloud), o AKS (Azure).
+
+Además, asegúrate de que están instalados:
+
+kubectl: para interactuar con el clúster de Kubernetes.
+Helm: para instalar aplicaciones en Kubernetes.
+Argo Events: Debes tener Argo Events instalado en tu clúster. Puedes instalarlo con el siguiente comando de Helm:
+......................................................
+ $-> helm repo add argo https://argoproj.github.io/argo-helm
+ $-> helm repo update
+ $-> helm install argo-events argo/argo-events --namespace argo-events --create-namespace
+......................................................
+Paso 2: Crear el Namespace para Argo Events
+......................................................
+ $-> kubectl create namespace argo-events
+..................................................
+Paso 3: Crear el EventSource (file-watcher-event-source.yaml)
+......................................................
+Aplica el archivo
+ $-> kubectl apply -f filewatcher-event-source.yaml
+.................................................
+Paso 4: Crear el Sensor (sensor-asociado.yaml)
+......................................................
+Aplica el Archivo
+ $-> kubectl apply -f filewatcher-sensor.yaml
+..................................................
+Paso 5: Crear el Directorio Monitoreado en el Pod del EventSource
+Para que el EventSource funcione correctamente, el directorio /tmp/watched-dir debe existir. 
+Como este EventSource se ejecuta dentro de un contenedor en Kubernetes, primero necesitamos 
+acceder al Pod que ejecuta el EventSource y crear el directorio monitoreado.
+......................................................
+Obtener el nombre del Pod asociado al EventSource:
+ $-> kubectl get pods -n argo-events
+.....................................................
+Busca el Pod cuyo nombre contiene filewatcher-event-source.
+$-> kubectl exec -it <nombre-del-pod> -n argo-events -- /bin/sh 
+#-- /bin/sh: Ejecuta una terminal (sh) dentro del contenedor. 
+#Esto te dará una sesión de shell para interactuar con el contenedor.
+
+Crear el Directorio /tmp/watched-dir
+$-> mkdir -p /tmp/watched-dir       
+......................................................
+Paso 6: Probar el Sistema
+Accede al Pod del EventSource como hicimos antes y crea un archivo en el directorio monitoreado:
+$-> touch /tmp/watched-dir/test-file.txt
+Esto generará un evento que será capturado por el EventSource.
+Verificar la Creación del Pod
+$-> kubectl get pods -n argo-events
+Deberías ver un Pod cuyo nombre comienza con filewatcher-pod-, y ese Pod ejecutará el comando:
+echo 'Archivo detectado en /tmp/watched-dir'; sleep 300.
+.......................................................
+Paso 7: Monitorear el Log del Pod Creado
+$-> kubectl logs <nombre-del-pod> -n argo-events
+Deberías ver un mensaje como:
+Archivo detectado en /tmp/watched-dir
+
+
+
+
+
+
+
+
+
+
+
