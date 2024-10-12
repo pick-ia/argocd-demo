@@ -11,28 +11,18 @@ spec:
       name: example-webhook
 #----------------------------------
 
-Explicación:
+apiVersion: argoproj.io/v1alpha1: Versión de la API de Argo Events utilizada para definir el recurso.
+kind: EventSource: Tipo de recurso. Este archivo define una fuente de eventos.
+metadata:: Información de metadatos del recurso.
+name: webhook-event-source: Nombre del EventSource que identificará esta fuente de evento.
+namespace: argo-events: Namespace donde este recurso existirá en Kubernetes.
+spec:: Define las especificaciones de la fuente de evento.
+webhooks:: Define un webhook como la fuente del evento.
+- port: "12000": Puerto en el cual el servidor estará escuchando solicitudes entrantes. Este webhook está configurado para escuchar en el puerto 12000.
+endpoint: /webhook: Endpoint específico donde se recibirán las solicitudes HTTP. Aquí, el webhook escuchará en la ruta /webhook.
+method: POST: Método HTTP aceptado por el endpoint; en este caso, solo se aceptan solicitudes de tipo POST.
+name: example-webhook: Nombre del webhook que se utilizará para referenciarlo en otros recursos, como un sensor por ejemplo.
 
-apiVersion y kind:
-
-apiVersion: argoproj.io/v1alpha1: Versión de la API.
-kind: EventSource: Especifica que este recurso es un EventSource.
-metadata:
-
-name: webhook-event-source: Nombre del EventSource.
-namespace: argo-events: Espacio de nombres.
-spec:
-
-service:
-ports:
-port: 12000: Puerto en el que el servicio estará disponible.
-targetPort: 12000: Puerto en el que el pod del EventSource está escuchando.
-webhooks:
-Es una lista de configuraciones de webhooks que el EventSource manejará.
-- name: example-webhook: Nombre del webhook dentro del EventSource.
-port: "12000": Puerto en el que el EventSource escucha para este webhook (como cadena de texto).
-endpoint: /webhook: Ruta del endpoint donde el webhook recibirá las solicitudes HTTP.
-method: POST: Método HTTP que el webhook aceptará.
-Función:
-
-Este EventSource configura un servidor HTTP que escucha en el puerto 12000 y en el endpoint /webhook para solicitudes POST. Cuando recibe una solicitud en esa ruta, genera un evento que puede ser consumido por un Sensor.
+Este EventSource configura un servidor HTTP que escucha en el puerto 12000 y en el endpoint /webhook para solicitudes POST.
+Cuando recibe una solicitud en esa ruta, genera un evento que puede ser consumido por un Sensor.
+Este archivo define una fuente de evento (EventSource) basada en un webhook en Argo Events. Un webhook es un mecanismo que permite recibir notificaciones HTTP desde otras aplicaciones o servicios.
