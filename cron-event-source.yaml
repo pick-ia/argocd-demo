@@ -33,4 +33,5 @@ timezone: La zona horaria utilizada para el cron, en este caso "UTC".
 payload: La carga útil que se enviará con el evento, aquí un mensaje en formato JSON.
 ¿Qué podemos hacer con este archivo?
 
-Este EventSource generará un evento cada minuto con el mensaje especificado en payload. Podemos utilizar este evento para desencadenar acciones en Argo Events, como ejecutar Workflows, enviar notificaciones, actualizar configuraciones, etc.
+Este EventSource generará un evento cada minuto con el mensaje especificado en payload. 
+Podemos utilizar este evento para desencadenar acciones en Argo Events, como ejecutar Workflows, enviar notificaciones, actualizar configuraciones, etc.
