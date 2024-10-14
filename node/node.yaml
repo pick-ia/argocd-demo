@@ -1,27 +1,29 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1  # Define la versión de la API de Kubernetes que estamos utilizando (apps/v1 para los Deployments)
+kind: Deployment  # Especifica que estamos creando un recurso de tipo Deployment
 metadata:
-  name: nodejs-backend-deployment  # Nombre del Deployment
-  namespace: default  # Espacio de nombres para la aplicación
+  name: nodejs-backend-deployment  # Nombre del Deployment para identificarlo
+  namespace: default  # Espacio de nombres donde se creará el Deployment (default es el namespace por defecto)
   labels:
-    app: nodejs-backend  # Etiqueta que identifica este servicio
+    app: nodejs-backend  # Etiqueta para identificar esta aplicación como "nodejs-backend"
 spec:
-  replicas: 2  # Número de réplicas del backend
+  replicas: 2  # Número de réplicas del Pod que queremos ejecutar (en este caso, 2 réplicas)
   selector:
     matchLabels:
-      app: nodejs-backend  # Selector para identificar los Pods del backend
+      app: nodejs-backend  # Selector que se utiliza para encontrar los Pods que tienen esta etiqueta "app: nodejs-backend"
   template:
     metadata:
       labels:
-        app: nodejs-backend  # Etiqueta que se aplicará al Pod
+        app: nodejs-backend  # Etiqueta que se asignará a los Pods creados por este Deployment, para que el selector los gestione
     spec:
       containers:
-      - name: nodejs-backend  # Nombre del contenedor
-        image: node:14  # Imagen de Node.js versión 14
+      - name: nodejs-backend  # Nombre del contenedor que se ejecutará en cada Pod
+        image: node:14  # Imagen Docker que se usará para el contenedor, en este caso Node.js versión 14
         ports:
-        - containerPort: 3000  # El backend escucha en el puerto 3000
-        env:
+        - containerPort: 3000  # El contenedor escuchará en el puerto 3000, que es el puerto común para aplicaciones Node.js
+        env:  # Variables de entorno que se pasarán al contenedor
         - name: NODE_ENV
-          value: "production"  # Definir el entorno de Node.js como "producción"
+          value: "production"  # Establece el entorno de ejecución de Node.js como "producción"
         - name: DB_HOST
-          value: "mysql-service"  # Dirección del servicio MySQL que usará el backend
+          value: "mysql-service"  # Dirección del servicio MySQL que la aplicación usará para conectarse a la base de datos
+
+
