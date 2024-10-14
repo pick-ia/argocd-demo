@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment  # Nombre del Deployment
+  namespace: default  # Espacio de nombres donde se desplegará
+  labels:
+    app: mysql  # Etiqueta que identifica esta aplicación
+spec:
+  replicas: 1  # Se despliega una réplica de MySQL
+  selector:
+    matchLabels:
+      app: mysql  # Selector para identificar los Pods con la etiqueta "app: mysql"
+  template:
+    metadata:
+      labels:
+        app: mysql  # Etiqueta que se aplicará al Pod creado
+    spec:
+      containers:
+      - name: mysql  # Nombre del contenedor
+        image: mysql:5.7  # Imagen de MySQL que se va a desplegar
+        ports:
+        - containerPort: 3306  # Puerto donde escuchará MySQL
+        env:  # Variables de entorno necesarias para la configuración de MySQL
+        - name: MYSQL_ROOT_PASSWORD
+          value: "my-secret-pw"  # Contraseña del root de MySQL
+        - name: MYSQL_DATABASE
+          value: "mydatabase"  # Nombre de la base de datos que se creará
