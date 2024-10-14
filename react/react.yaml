@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-frontend-deployment  # Nombre del Deployment
+  namespace: default  # Espacio de nombres para el despliegue
+  labels:
+    app: react-frontend  # Etiqueta que identifica el frontend
+spec:
+  replicas: 1  # Solo una réplica del frontend
+  selector:
+    matchLabels:
+      app: react-frontend  # Selector para identificar los Pods del frontend
+  template:
+    metadata:
+      labels:
+        app: react-frontend  # Etiqueta para los Pods creados
+    spec:
+      containers:
+      - name: react-frontend  # Nombre del contenedor
+        image: nginx:latest  # Usamos Nginx para servir la aplicación
+        ports:
+        - containerPort: 80  # Nginx servirá en el puerto 80
+        volumeMounts:
+        - name: react-app
+          mountPath: /usr/share/nginx/html  # Se monta la aplicación en este path de Nginx
+      volumes:
+      - name: react-app
+        configMap:
+          name: react-config  # ConfigMap que contiene los archivos estáticos del frontend
