@@ -1,0 +1,6 @@
+replicaCount: 2
+image:
+  tag: "1.19"
+service:
+  type: LoadBalancer
+  port: 80   #valores para el archivo de entorno de stating 
