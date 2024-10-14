@@ -12,3 +12,5 @@ data:
   config: ewogICJjYS5jcnQiOiAiUEtDU0...",
 ---------------------------------------------------
 echo -n "argo-events-demo" | base64   Para codificar el nombre del cluster en base64
+echo -n "https://192.168.67.2:8443" | base64  Para codificar la direccion ip
+
