@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deployment  # Nombre del Deployment
+  namespace: default  # Espacio de nombres para el despliegue
+  labels:
+    app: flask-app  # Etiqueta que identifica el servicio Flask
+spec:
+  replicas: 2  # Se despliegan dos réplicas para balanceo de carga
+  selector:
+    matchLabels:
+      app: flask-app  # Selector para identificar los Pods del servicio Flask
+  template:
+    metadata:
+      labels:
+        app: flask-app  # Etiqueta para los Pods creados
+    spec:
+      containers:
+      - name: flask-app  # Nombre del contenedor
+        image: python:3.9-slim  # Imagen base de Python 3.9
+        ports:
+        - containerPort: 5000  # Flask escucha en el puerto 5000
+        env:
+        - name: FLASK_ENV
+          value: "production"  # Definir el entorno de Flask como "producción"
+        - name: DATABASE_URL
+          value: "mysql://root:my-secret-pw@mysql-service/mydatabase"  # URL de la base de datos
+        command: ["flask"]  # Comando para iniciar Flask
+        args: ["run", "--host=0.0.0.0"]  # Flask ejecutándose en modo servidor
