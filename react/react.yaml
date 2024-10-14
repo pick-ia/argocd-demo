@@ -1,29 +1,30 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1  # Define la versión de la API de Kubernetes que estamos utilizando
+kind: Deployment  # Especifica que este recurso es un Deployment
 metadata:
-  name: react-frontend-deployment  # Nombre del Deployment
-  namespace: default  # Espacio de nombres para el despliegue
+  name: react-frontend-deployment  # Nombre del Deployment para identificarlo
+  namespace: default  # Espacio de nombres en el que se desplegará (default por defecto)
   labels:
-    app: react-frontend  # Etiqueta que identifica el frontend
+    app: react-frontend  # Etiqueta que identifica esta aplicación como el frontend de React
 spec:
-  replicas: 1  # Solo una réplica del frontend
+  replicas: 1  # Se especifica que solo se ejecutará una réplica de este frontend
   selector:
     matchLabels:
-      app: react-frontend  # Selector para identificar los Pods del frontend
+      app: react-frontend  # Selector que se utiliza para encontrar los Pods que tienen la etiqueta "app: react-frontend"
   template:
     metadata:
       labels:
-        app: react-frontend  # Etiqueta para los Pods creados
+        app: react-frontend  # Etiqueta que se asignará a los Pods creados por este Deployment
     spec:
       containers:
-      - name: react-frontend  # Nombre del contenedor
-        image: nginx:latest  # Usamos Nginx para servir la aplicación
+      - name: react-frontend  # Nombre del contenedor que se ejecutará en el Pod, representando el frontend React
+        image: nginx:latest  # Imagen Docker de Nginx (la última versión) que se usará para servir la aplicación React
         ports:
-        - containerPort: 80  # Nginx servirá en el puerto 80
+        - containerPort: 80  # Nginx estará sirviendo la aplicación en el puerto 80, el puerto predeterminado para HTTP
         volumeMounts:
-        - name: react-app
-          mountPath: /usr/share/nginx/html  # Se monta la aplicación en este path de Nginx
+        - name: react-app  # Define el volumen que se va a montar en el contenedor
+          mountPath: /usr/share/nginx/html  # El volumen se monta en el directorio donde Nginx sirve los archivos estáticos (en este caso, los archivos de la app React)
       volumes:
-      - name: react-app
+      - name: react-app  # Definición del volumen llamado "react-app"
         configMap:
-          name: react-config  # ConfigMap que contiene los archivos estáticos del frontend
+          name: react-config  # ConfigMap que contiene los archivos estáticos del frontend React
+
