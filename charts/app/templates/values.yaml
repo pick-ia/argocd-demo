@@ -1,0 +1,9 @@
+replicaCount: 1
+image:
+  repository: nginx
+  tag: "1.18"
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 80
+#Este archivo contiene valores por defecto que se pueden sobrescribir con otros archivos de valores para distintos entornos.
