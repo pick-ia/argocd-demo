@@ -1,27 +1,27 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1  # Define la versión de la API de Kubernetes que estamos usando
+kind: Deployment  # Indica que este archivo define un recurso de tipo Deployment
 metadata:
-  name: mysql-deployment  # Nombre del Deployment
-  namespace: default  # Espacio de nombres donde se desplegará
+  name: mysql-deployment  # Nombre del Deployment que se está creando
+  namespace: default  # Espacio de nombres donde se creará el Deployment
   labels:
-    app: mysql  # Etiqueta que identifica esta aplicación
+    app: mysql  # Etiqueta para identificar la aplicación como MySQL
 spec:
-  replicas: 1  # Se despliega una réplica de MySQL
+  replicas: 1  # Número de réplicas del Pod MySQL que se desea ejecutar (en este caso, 1)
   selector:
     matchLabels:
-      app: mysql  # Selector para identificar los Pods con la etiqueta "app: mysql"
+      app: mysql  # Selector que indica que este Deployment gestionará Pods con la etiqueta "app: mysql"
   template:
     metadata:
       labels:
-        app: mysql  # Etiqueta que se aplicará al Pod creado
+        app: mysql  # La etiqueta que se aplicará a los Pods creados por este Deployment
     spec:
       containers:
-      - name: mysql  # Nombre del contenedor
-        image: mysql:5.7  # Imagen de MySQL que se va a desplegar
+      - name: mysql  # Nombre del contenedor que se ejecutará en el Pod
+        image: mysql:5.7  # Imagen Docker que se usará para desplegar MySQL (versión 5.7)
         ports:
-        - containerPort: 3306  # Puerto donde escuchará MySQL
-        env:  # Variables de entorno necesarias para la configuración de MySQL
-        - name: MYSQL_ROOT_PASSWORD
-          value: "my-secret-pw"  # Contraseña del root de MySQL
-        - name: MYSQL_DATABASE
-          value: "mydatabase"  # Nombre de la base de datos que se creará
+        - containerPort: 3306  # Puerto en el que el contenedor MySQL estará escuchando (3306 es el puerto estándar de MySQL)
+        env:  # Variables de entorno que se pasarán al contenedor para la configuración de MySQL
+        - name: MYSQL_ROOT_PASSWORD  # Variable de entorno que define la contraseña para el usuario root de MySQL
+          value: "my-secret-pw"  # El valor de la contraseña del root (en un entorno real se recomienda usar Kubernetes Secrets en lugar de texto plano)
+        - name: MYSQL_DATABASE  # Variable de entorno que define el nombre de la base de datos que se creará al iniciar MySQL
+          value: "mydatabase"  # El nombre de la base de datos que se creará automáticamente al arrancar el contenedor
