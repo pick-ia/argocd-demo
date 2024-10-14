@@ -9,7 +9,8 @@ type: Opaque
 data:
   name: YXJnby1ldmVudHMtZGVtbw== # Nombre del contexto del clúster, en base64
   server: aHR0cHM6Ly8xOTIuMTY4LjY3LjI6ODQ0Mw== # Dirección del API Server del clúster, en base64
-  config: ewogICJjYS5jcnQiOiAiUEtDU0...",
+  config: ewogICJjYS5jcnQiOiAiUEtDU0..." # Configuración codificada en base64 (incompleta)
+
 ---------------------------------------------------
 echo -n "argo-events-demo" | base64   Para codificar el nombre del cluster en base64
 echo -n "https://192.168.67.2:8443" | base64  Para codificar la direccion ip
