@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-backend-deployment  # Nombre del Deployment
+  namespace: default  # Espacio de nombres para la aplicación
+  labels:
+    app: nodejs-backend  # Etiqueta que identifica este servicio
+spec:
+  replicas: 2  # Número de réplicas del backend
+  selector:
+    matchLabels:
+      app: nodejs-backend  # Selector para identificar los Pods del backend
+  template:
+    metadata:
+      labels:
+        app: nodejs-backend  # Etiqueta que se aplicará al Pod
+    spec:
+      containers:
+      - name: nodejs-backend  # Nombre del contenedor
+        image: node:14  # Imagen de Node.js versión 14
+        ports:
+        - containerPort: 3000  # El backend escucha en el puerto 3000
+        env:
+        - name: NODE_ENV
+          value: "production"  # Definir el entorno de Node.js como "producción"
+        - name: DB_HOST
+          value: "mysql-service"  # Dirección del servicio MySQL que usará el backend
