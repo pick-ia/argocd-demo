@@ -1,9 +1,0 @@
-apiVersion: v2
-name: web-app
-description: Un Chart de Helm para desplegar una aplicación web
-
-# La versión del Chart
-version: 0.1.0
-
-# Versión mínima de Kubernetes requerida. Este archivo define los metadatos de Helm
-kubeVersion: ">=1.16.0"
