@@ -6,7 +6,7 @@ metadata:
   labels:
     app: flask-app  # Etiqueta que identifica esta aplicación como un servicio Flask
 spec:
-  replicas: 2  # Se especifican 2 réplicas de la aplicación para habilitar balanceo de carga
+  replicas: 1  # Se especifican 2 réplicas de la aplicación para habilitar balanceo de carga
   selector:
     matchLabels:
       app: flask-app  # Selector que busca Pods con la etiqueta "app: flask-app" para gestionarlos
