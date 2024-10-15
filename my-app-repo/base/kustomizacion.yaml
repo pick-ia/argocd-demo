@@ -1,1 +1,10 @@
+resources:
+  - deployment-frontend.yaml
+  - deployment-backend.yaml
+  - deployment-mysql.yaml
+  - service-frontend.yaml
+  - service-backend.yaml
+  - service-mysql.yaml
+  - configmap-backend.yaml
+  - secret-mysql.yaml
 
