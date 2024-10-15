@@ -1,0 +1,15 @@
+apiVersion: v1  # Usamos la versión de la API de Kubernetes para recursos básicos (v1)
+kind: Service  # Definimos un Service
+metadata:
+  name: frontend-service  # Nombre del Service
+  namespace: default  # Namespace donde se va a crear el Service
+spec:
+  selector:
+    app: react-frontend  # Selector que identifica los Pods que serán expuestos por este Service
+  ports:
+  - protocol: TCP  # El protocolo usado para la comunicación es TCP
+    port: 80  # Puerto interno del clúster para la aplicación
+    targetPort: 80  # Puerto donde el contenedor está escuchando (dentro del Pod)
+    nodePort: 30001  # Puerto que expondrá el servicio fuera del clúster
+  type: NodePort  # El tipo de Service es NodePort, lo que permite que el puerto sea accesible desde fuera del clúster
+#-El siguiente YAML define un recurso de tipo Service que se utiliza para exponer un grupo de Pods a la red externa de Kubernetes, usando el tipo NodePort para que sea accesible desde fuera del clúster.
