@@ -1,1 +1,7 @@
+bases:
+  - ../../base
+namePrefix: dev-  # Prefijo para los nombres de los recursos en desarrollo
+
+patchesStrategicMerge:
+  - replicas-patch.yaml  # Modificaciones para el entorno de desarrollo
 
