@@ -1,1 +1,8 @@
+# kustomization.yaml en la carpeta /base
+resources:
+  - deployment.yaml  # Deployment de la aplicación
+  - service.yaml     # Service para exponer la aplicación
+  - configmap.yaml   # ConfigMap con configuraciones
+  - secret.yaml      # Secret con credenciales
 
+#-Este archivo es el que "orquesta" los diferentes recursos que has definido. Aquí tienes un ejemplo básico que podrías usar en la carpeta /base:
