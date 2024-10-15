@@ -1,1 +1,7 @@
+bases:
+  - ../../base  # Incluir todos los recursos del directorio base
+namePrefix: prod-  # Añadir el prefijo "prod-" para diferenciar los recursos de producción
+
+patchesStrategicMerge:
+  - replicas-patch.yaml  # Parche para modificar las réplicas en producción
 
