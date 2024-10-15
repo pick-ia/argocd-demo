@@ -1,1 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: default
+spec:
+  selector:
+    app: react-frontend  # Selector para el Deployment del frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
 
