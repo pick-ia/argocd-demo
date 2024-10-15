@@ -1,1 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-frontend-deployment
+spec:
+  replicas: 1  # Solo 1 réplica en desarrollo para el frontend
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-backend-deployment
+spec:
+  replicas: 1  # Solo 1 réplica en desarrollo para el backend
 
