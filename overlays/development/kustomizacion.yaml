@@ -1,0 +1,7 @@
+# kustomization.yaml en /overlays/development
+bases:
+  - ../../base
+namePrefix: dev-  # Prefijo para los nombres de los recursos (Ej: dev-react-frontend-deployment)
+
+patchesStrategicMerge:
+  - replicas-patch.yaml  # Ajustes específicos para este entorno
