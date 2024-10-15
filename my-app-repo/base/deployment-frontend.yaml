@@ -1,1 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-frontend-deployment
+  namespace: default
+  labels:
+    app: react-frontend
+spec:
+  replicas: 1  # Solo 1 réplica en este caso
+  selector:
+    matchLabels:
+      app: react-frontend
+  template:
+    metadata:
+      labels:
+        app: react-frontend
+    spec:
+      containers:
+      - name: react-frontend
+        image: nginx:latest  # Usamos Nginx para servir la app React
+        ports:
+        - containerPort: 80  # Nginx servirá en el puerto 80
+        volumeMounts:
+        - name: react-app
+          mountPath: /usr/share/nginx/html  # Archivos estáticos de React montados aquí
+      volumes:
+      - name: react-app
+        configMap:
+          name: react-config  # ConfigMap que contiene los archivos estáticos de la app React
 
