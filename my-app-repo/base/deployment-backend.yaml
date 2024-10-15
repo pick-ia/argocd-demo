@@ -1,1 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-backend-deployment
+  namespace: default
+  labels:
+    app: flask-backend
+spec:
+  replicas: 2  # 2 réplicas para balanceo de carga
+  selector:
+    matchLabels:
+      app: flask-backend
+  template:
+    metadata:
+      labels:
+        app: flask-backend
+    spec:
+      containers:
+      - name: flask-backend
+        image: python:3.9-slim
+        ports:
+        - containerPort: 5000  # Flask servirá en el puerto 5000
+        env:
+        - name: FLASK_ENV
+          value: "production"
+        - name: DATABASE_URL
+          value: "mysql://root:my-secret-pw@mysql-service/mydatabase"
+        command: ["flask"]
+        args: ["run", "--host=0.0.0.0"]
 
