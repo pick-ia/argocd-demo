@@ -1,0 +1,62 @@
+Explicación:
+charts/web-app/templates/:
+
+Aquí es donde irán los archivos de plantilla (.yaml) de Kubernetes. 
+Estos archivos son las definiciones de recursos como 
+Deployments, Services, etc., pero utilizando plantillas de Helm 
+para que puedas pasar valores dinámicos.
+------------------------------------------------------------------
+
+charts/web-app/values.yaml:
+
+Este es el archivo de valores por defecto. Aquí defines variables que se utilizarán en las plantillas 
+(por ejemplo, el número de réplicas, las imágenes de Docker, etc.). Sin embargo, estos valores pueden 
+ser sobrescritos por otros archivos de valores que definan configuraciones específicas para diferentes 
+entornos (por ejemplo, values-development.yaml).
+---------------------------------------------------------------------
+Chart.yaml:
+
+Este archivo es obligatorio en los Charts de Helm.
+Es básicamente un archivo de metadatos que describe el Chart (nombre, versión, etc.).
+-----------------------------------------------------------------------
+
+values-development.yaml, values-staging.yaml, y values-production.yaml:
+
+Estos archivos son variantes específicas para cada entorno (desarrollo, staging, producción). 
+Aquí puedes sobrescribir los valores definidos en values.yaml para adaptarlos a cada uno de 
+estos entornos.
+------------------------------------------------------------------------------------
+
+El archivo deployment.yaml que va dentro de templates/ contiene la plantilla que Helm
+procesará, y reemplazará con los valores correspondientes desde values.yaml o los archivos 
+de valores específicos de cada entorno
+(values-development.yaml, values-staging.yaml, etc.).
+
+---------------------------------------------------------------------------------------
+En resumen:
+
+templates/: Contiene las plantillas (como deployment.yaml, service.yaml, etc.).
+values.yaml: Archivo de valores por defecto que puede ser sobrescrito por los archivos de 
+valores específicos para cada entorno (values-development.yaml, values-staging.yaml, etc.).
+De esta forma, cuando despliegues la aplicación, Helm utilizará estas plantillas y 
+archivos de valores para generar los manifiestos de Kubernetes que se aplicarán en el clúster.
+
+Cuando configures la aplicación en ArgoCD, puedes usar estos archivos de valores específicos 
+para cada entorno. Por ejemplo, cuando definas la aplicación en ArgoCD, puedes seleccionar el archivo values-production.yaml para el entorno de producción.
+
+En ArgoCD, especificas qué archivo de valores usar con la opción valuesFiles, 
+como este ejemplo de configuración YAML para ArgoCD.
+-------------------------------------------------------------------------------------------
+Pasos para crear la aplicación en ArgoCD (desde la interfaz gráfica):
+Inicia sesión en ArgoCD y abre el panel de control.
+Haz clic en New App (Nueva aplicación).
+Completa los campos requeridos:
+Nombre: Asigna un nombre a la aplicación.
+Proyecto: Selecciona el proyecto donde se alojará la aplicación (por defecto puede ser "default").
+Git Repository: Proporciona la URL de tu repositorio Git.
+Branch: Selecciona la rama de tu repositorio donde están los archivos de Helm (puede ser main o HEAD).
+Path: Especifica la ruta a los archivos values.yaml y Helm Chart (por ejemplo, charts/).
+ValueFiles: Aquí es donde debes especificar qué archivo de valores YAML deseas usar (por ejemplo, values-production.yaml o values-development.yaml).
+Configura el destination:
+El servidor de Kubernetes y el namespace donde deseas desplegar la aplicación.
+Configura la política de sincronización (sync policy), si deseas que sea automatizada o manual.
