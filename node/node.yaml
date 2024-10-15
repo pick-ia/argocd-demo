@@ -6,7 +6,7 @@ metadata:
   labels:
     app: nodejs-backend  # Etiqueta para identificar esta aplicación como "nodejs-backend"
 spec:
-  replicas: 2  # Número de réplicas del Pod que queremos ejecutar (en este caso, 2 réplicas)
+  replicas: 1  # Número de réplicas del Pod que queremos ejecutar (en este caso, 2 réplicas)
   selector:
     matchLabels:
       app: nodejs-backend  # Selector que se utiliza para encontrar los Pods que tienen esta etiqueta "app: nodejs-backend"
